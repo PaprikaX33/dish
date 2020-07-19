@@ -6,8 +6,9 @@ static int arg_parse(int argc, char ** argv);
 
 int main(int argc, char ** argv)
 {
-  if(arg_parse(argc, argv)){
-    return 0;
+  int retcode;
+  if((retcode = arg_parse(argc, argv))){
+    return (retcode < 0 ? retcode : 0);
   }
   printf("Hello World\n");
   return 0;
@@ -19,17 +20,20 @@ static void write_vers(void);
 int arg_parse(int argc, char ** argv)
 {
   for(int i = 1; i < argc; i++){
-    char const * arg = argv[i];
-    if(arg[0] != '-'){
-      continue;
-    }
-    arg++;
-    if(!strcmp(arg, "-help") || !strcmp(arg, "?")){
-      write_help();
-      return -1;
-    }
-    if(!strcmp(arg, "-version") || !strcmp(arg, "V")){
-      write_vers();
+    char const * const arg = argv[i];
+    if(arg[0] == '-'){
+      char const * const argf = arg+1;
+      if(!strcmp(argf, "-help") || !strcmp(argf, "?")){
+        write_help();
+        return 1;
+      }
+      if(!strcmp(argf, "-version") || !strcmp(argf, "V")){
+        write_vers();
+        return 1;
+      }
+
+      printf("idsh: unrecognized option '%s'\n", arg);
+      puts("Try 'idsh --help' for more information.");
       return -1;
     }
   }

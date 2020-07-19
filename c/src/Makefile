@@ -18,7 +18,7 @@ export bindir
 export exec_prefix
 
 compile_name := $(exec_name)
-cflags := -g -Og -Wall -Wextra -Wshadow -Wcast-align -Wunused -Wpedantic -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2
+cflags := -std=c11 -g -Og -Wall -Wextra -Wshadow -Wcast-align -Wunused -Wpedantic -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2
 vrflag = -DVERSION_MAJOR=$(version_mj) -DVERSION_MINOR=$(version_mn) -DVERSION_PATCH=$(version_pt)
 
 all : idsh
