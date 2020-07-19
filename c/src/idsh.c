@@ -26,11 +26,18 @@ int idsh_loop(void)
                             .tok = malloc(sizeof(char *) * (MIN_TOKEN + 1)),
                             .len = MIN_TOKEN + 1
   };
+  if(!token.tok){
+    fprintf(stderr, "Unable to allocate memory!");
+    return -1;
+  }
   struct StringPair string = {
                               .str = malloc(sizeof(char) * (MIN_BUFFSIZE + 1)),
                               .len = MIN_BUFFSIZE + 1
   };
-
+  if(!string.str){
+    fprintf(stderr, "Unable to allocate memory!");
+    return -1;
+  }
   int loop;
 
   do{
@@ -40,17 +47,15 @@ int idsh_loop(void)
   return 0;
 }
 
-struct StringPair idsh_getline(struct StringPair)
+struct StringPair idsh_getline(struct StringPair str)
 {
-  size_t length = MIN_BUFFSIZE;
   size_t pos = 0;
-  char * data = malloc(length * sizeof(char));
   do{
     int chr = getchar();
     pos++;
-    return data;
+    return str;
   }while(1);
-  return data;
+  return str;
 }
 
 struct TokenPair idsh_tokenize(struct TokenPair, struct StringPair)
