@@ -1,3 +1,4 @@
+#include "verString.inc"
 #include <stdio.h>
 #include <string.h>
 
@@ -19,15 +20,15 @@ int arg_parse(int argc, char ** argv)
 {
   for(int i = 1; i < argc; i++){
     char const * arg = argv[i];
-    if(arg[0] == '-'){
+    if(arg[0] != '-'){
       continue;
     }
     arg++;
-    if(strcmp(arg, "-help") || strcmp(arg, "h") || strcmp(arg, "?")){
+    if(!strcmp(arg, "-help") || !strcmp(arg, "h") || !strcmp(arg, "?")){
       write_help();
       return -1;
     }
-    if(strcmp(arg, "-version") || strcmp(arg, "V")){
+    if(!strcmp(arg, "-version") || !strcmp(arg, "V")){
       write_vers();
       return -1;
     }
@@ -41,5 +42,5 @@ void write_help(void)
 }
 void write_vers(void)
 {
-
+  puts(VersionString);
 }
