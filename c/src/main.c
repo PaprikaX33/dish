@@ -24,7 +24,7 @@ int arg_parse(int argc, char ** argv)
       continue;
     }
     arg++;
-    if(!strcmp(arg, "-help") || !strcmp(arg, "h") || !strcmp(arg, "?")){
+    if(!strcmp(arg, "-help") || !strcmp(arg, "?")){
       write_help();
       return -1;
     }
@@ -38,9 +38,11 @@ int arg_parse(int argc, char ** argv)
 
 void write_help(void)
 {
-
+  puts(usageString);
+  putc('\n', stdout);
+  puts(optionString);
 }
 void write_vers(void)
 {
-  puts(VersionString);
+  puts(versionString);
 }
