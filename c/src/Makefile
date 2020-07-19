@@ -6,8 +6,8 @@ version_mj	= 0
 version_mn	= 1
 version_pt	= 0
 
-source_file	= main
-header_file	=
+source_file	= main idsh
+header_file	= IdshStart.h
 includ_file	= verString.inc
 csrc_file	= $(source_file:%=%.o)
 object_file	= $(csrc_file:.c=.o)
@@ -23,16 +23,17 @@ vrflag = -DVERSION_MAJOR=$(version_mj) -DVERSION_MINOR=$(version_mn) -DVERSION_P
 
 all : idsh
 
-idsh : $(compile_name)
-
-$(compile_name) : $(object_file)
-	$(CC) $(cflags) -o $(compile_name) $(object_file) -ldl
+idsh : $(object_file)
+	$(CC) $(cflags) -o $(compile_name) $(object_file)
 
 main.o :  main.c $(includ_file) $(header_file)
-	$(CC) $(cflags) $(vrflag) -c -o $@ $<
+	$(CC) $(cflags) $(vrflag) -c -o $@ main.c
 
-$(object_file) : %.o :  %.c
-	$(CC) $(cflags) $(vrflag) -c -o $@ $<
+idsh.o : idsh.c $(header_file)
+	$(CC) $(cflags) -c -o $@ idsh.c
+
+# $(object_file) : %.o :  %.c
+# 	$(CC) $(cflags) -c -o $@ $<
 
 clean :
 	-rm *.o $(compile_name)

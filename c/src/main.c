@@ -1,3 +1,4 @@
+#include "IdshStart.h"
 #include "verString.inc"
 #include <stdio.h>
 #include <string.h>
