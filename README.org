@@ -1,6 +1,6 @@
 #+TITLE: idsh
 
-* *Id*iotic *Sh*ell
+* Idiotic Shell
   - A shell designed to be naive and bare bones.
   - Could be used for testing language
 
