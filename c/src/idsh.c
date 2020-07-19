@@ -52,21 +52,45 @@ struct StringPair idsh_getline(struct StringPair str)
   size_t pos = 0;
   do{
     int chr = getchar();
+    if(chr == EOF){
+      str.str[pos] = '\0';
+      return str;
+    }
+    if(chr == '\n'){
+      if(!pos){
+        if(str.str[pos - 1] != '\\'){
+          str.str[pos] = '\0';
+          return str;
+        }
+        pos--;
+        continue;
+      }
+      else {
+        str.str[0] = '\0';
+        return str;
+      }
+    }
+
+    str.str[pos] = (char)chr;
     pos++;
-    return str;
+    //TODO: CHECK FOR REQUIRING REALLOCATE BUFFER
+    //return str;
   }while(1);
   return str;
 }
 
-struct TokenPair idsh_tokenize(struct TokenPair, struct StringPair)
+struct TokenPair idsh_tokenize(struct TokenPair tok, struct StringPair str)
 {
-  (void)inpText;
-  return NULL;
+  for(size_t i = 0; i < 20; i++){
+    putc(str.str[i], stdout);
+  }
+  putc('\n',stdout);
+  return tok;
 }
 
-int idsh_exec(struct TokenPair)
+int idsh_exec(struct TokenPair tok)
 {
-  (void)cmdTok;
+  (void)tok;
   return 0;
 }
 //getchar();
