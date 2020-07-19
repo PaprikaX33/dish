@@ -1,0 +1,16 @@
+* MILESTONE A [0/3]
+  1. [ ] REPL
+  2. [ ] Program Invocation
+  3. [ ] Basic flags: [0/2]
+     - [ ] Help [0/3]
+       - [ ] -h
+       - [ ] -?
+       - [ ] --help
+     - [ ] version [0/2]
+       - [ ] -V
+       - [ ] --version
+
+* Milestone B [/]
+  1. [ ] Arithmetic
+  2. [ ] Escape Flag
+  3. [ ] Quoted string
