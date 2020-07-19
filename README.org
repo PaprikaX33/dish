@@ -4,6 +4,11 @@
   - A shell designed to be naive and bare bones.
   - Could be used for testing language
 
+** Assumptions
+
+   A list of assumptions to simplify the design
+   - Assumes the terminal width as 80 for the response on the flag
+
 ** Feature List / Limited Specification
 
    List of features / specification of the target features
@@ -21,6 +26,10 @@
     1. Arithmetic
     2. Escape Flag
     3. Quoted string
+
+*** Milestone C
+    1. History
+    2. Autocomplete
 
 ** Planned Lang: [0/1]
    - [ ] C
