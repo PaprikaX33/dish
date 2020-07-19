@@ -1,0 +1,8 @@
+#+TITLE: idsh
+
+* IDiotic SHell
+  - A shell designed to be naive and bare bones.
+  - Could be used for testing language
+
+** Planned Lang: [0/1]
+   - [ ] C
