@@ -53,12 +53,13 @@ struct StringPair idsh_getline(struct StringPair str)
   do{
     int chr = getchar();
     if(chr == EOF){
+      putc('\n',stdout);
+      exit(0);
+    }
+    if(chr == '\n'){
       str.str[pos] = '\0';
       return str;
     }
-    if(chr == '\n'){
-    }
-
     str.str[pos] = (char)chr;
     pos++;
     //TODO: CHECK FOR REQUIRING REALLOCATE BUFFER
