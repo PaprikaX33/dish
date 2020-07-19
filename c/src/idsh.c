@@ -23,16 +23,16 @@ static int idsh_exec(struct TokenPair);
 int idsh_loop(void)
 {
   struct TokenPair token = {
-                            .tok = malloc(sizeof(char *) * (MIN_TOKEN + 1)),
-                            .len = MIN_TOKEN + 1
+                            .tok = malloc(sizeof(char *) * MIN_TOKEN),
+                            .len = MIN_TOKEN
   };
   if(!token.tok){
     fprintf(stderr, "Unable to allocate memory!");
     return -1;
   }
   struct StringPair string = {
-                              .str = malloc(sizeof(char) * (MIN_BUFFSIZE + 1)),
-                              .len = MIN_BUFFSIZE + 1
+                              .str = malloc(sizeof(char) * MIN_BUFFSIZE),
+                              .len = MIN_BUFFSIZE
   };
   if(!string.str){
     fprintf(stderr, "Unable to allocate memory!");
@@ -62,8 +62,14 @@ struct StringPair idsh_getline(struct StringPair str)
     }
     str.str[pos] = (char)chr;
     pos++;
-    //TODO: CHECK FOR REQUIRING REALLOCATE BUFFER
-    //return str;
+
+    if(pos == str.len){
+      if(!(str.str = realloc(str.str, str.len * 2))){
+        fprintf(stderr, "Unable to allocate memory!");
+        exit(-1);
+      }
+      str.len *= 2;
+    }
   }while(1);
   return str;
 }
@@ -73,7 +79,7 @@ struct TokenPair idsh_tokenize(struct TokenPair tok, struct StringPair str)
   for(size_t i = 0; i < 20; i++){
     printf("%x ", str.str[i]);
   }
-  putc('\n',stdout);
+  printf("\nSize: %lu\n", str.len);
   return tok;
 }
 
