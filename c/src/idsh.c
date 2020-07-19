@@ -57,18 +57,6 @@ struct StringPair idsh_getline(struct StringPair str)
       return str;
     }
     if(chr == '\n'){
-      if(!pos){
-        if(str.str[pos - 1] != '\\'){
-          str.str[pos] = '\0';
-          return str;
-        }
-        pos--;
-        continue;
-      }
-      else {
-        str.str[0] = '\0';
-        return str;
-      }
     }
 
     str.str[pos] = (char)chr;
@@ -82,7 +70,7 @@ struct StringPair idsh_getline(struct StringPair str)
 struct TokenPair idsh_tokenize(struct TokenPair tok, struct StringPair str)
 {
   for(size_t i = 0; i < 20; i++){
-    putc(str.str[i], stdout);
+    printf("%x ", str.str[i]);
   }
   putc('\n',stdout);
   return tok;
