@@ -5,8 +5,8 @@
      - [-] Help [1/2]
        - [X] Flags
        - [ ] Text
-     - [ ] version [0/2]
-       - [ ] Flags
+     - [-] version [1/2]
+       - [X] Flags
        - [ ] Text
 
 * Milestone B [/]

@@ -2,6 +2,9 @@ exec_name	= didsh
 prefix		= /usr/local
 exec_prefix	= $(prefix)
 bindir		= $(exec_prefix)/bin
+version_mj	= 0
+version_mn	= 1
+version_pt	= 0
 
 export prefix
 export bindir
@@ -9,6 +12,7 @@ export exec_prefix
 
 compile_name := $(exec_name)
 cflags := -g -Og -Wall -Wextra -Wshadow -Wcast-align -Wunused -Wpedantic -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2
+vrflag := -DVERSION_MAJOR=$(version_mj) -DVERSION_MINOR=$(version_mn) -DVERSION_PATCH=$(version_pt)
 
 all : idsh
 
@@ -18,7 +22,7 @@ $(compile_name) : main.o
 	$(CC) $(cflags) -o $(compile_name) $^ -ldl
 
 %.o : %.c
-	$(CC) $(cflags) -c -o $@ $^
+	$(CC) $(cflags) $(vrflag) -c -o $@ $^
 
 clean :
 	-rm *.o $(compile_name)
