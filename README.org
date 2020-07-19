@@ -30,7 +30,16 @@
     3. Quoted string
 
 *** Milestone C
+    1. Script
+
+*** Milestone D
+    2. Script sourcing
+    3. Functions
+
+*** Milestone E
     1. History
+
+*** Milestone F
     2. Autocomplete
 
 ** Planned Lang: [0/1]
