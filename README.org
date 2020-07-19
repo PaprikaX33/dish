@@ -1,8 +1,26 @@
 #+TITLE: idsh
 
-* IDiotic SHell
+* *Id*iotic *Sh*ell
   - A shell designed to be naive and bare bones.
   - Could be used for testing language
+
+** Feature List / Limited Specification
+
+   List of features / specification of the target features
+
+*** Basic Feature: (MILESTONE A)
+    1. REPL
+    2. Program Invocation
+    3. Basic flags:
+       - Help
+         - -h / --help
+         - -?
+       - version
+         - -V / --version
+*** Milestone B
+    1. Arithmetic
+    2. Escape Flag
+    3. Quoted string
 
 ** Planned Lang: [0/1]
    - [ ] C
