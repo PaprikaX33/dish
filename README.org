@@ -22,6 +22,8 @@
          - -?
        - version
          - -V / --version
+       - Invalid flag
+
 *** Milestone B
     1. Arithmetic
     2. Escape Flag
