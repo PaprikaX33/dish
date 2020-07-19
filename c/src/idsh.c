@@ -3,39 +3,63 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define MIN_BUFSIZE 1024
+#define MIN_BUFFSIZE 1024
 #define MIN_TOKEN 16
-static char * idsh_getline(void);
-static char ** idsh_tokenize(char *);
-int idsh_exec(char **);
+
+struct StringPair {
+  char * str;
+  size_t len;
+};
+
+struct TokenPair {
+  char ** tok;
+  size_t  len;
+};
+
+static struct StringPair idsh_getline(struct StringPair);
+static struct TokenPair idsh_tokenize(struct TokenPair, struct StringPair);
+static int idsh_exec(struct TokenPair);
 
 int idsh_loop(void)
 {
-  char * inpText;
-  char ** tokenList;
+  struct TokenPair token = {
+                            .tok = malloc(sizeof(char *) * (MIN_TOKEN + 1)),
+                            .len = MIN_TOKEN + 1
+  };
+  struct StringPair string = {
+                              .str = malloc(sizeof(char) * (MIN_BUFFSIZE + 1)),
+                              .len = MIN_BUFFSIZE + 1
+  };
+
   int loop;
 
   do{
     printf("IdSH> ");
-    loop = idsh_exec(tokenList = idsh_tokenize(inpText = idsh_getline()));
-    free(tokenList);
-    free(inpText);
+    loop = idsh_exec(token = idsh_tokenize(token, string = idsh_getline(string)));
   }while(loop);
   return 0;
 }
 
-char * idsh_getline(void)
+struct StringPair idsh_getline(struct StringPair)
 {
-  return NULL;
+  size_t length = MIN_BUFFSIZE;
+  size_t pos = 0;
+  char * data = malloc(length * sizeof(char));
+  do{
+    int chr = getchar();
+    pos++;
+    return data;
+  }while(1);
+  return data;
 }
 
-char ** idsh_tokenize(char * inpText)
+struct TokenPair idsh_tokenize(struct TokenPair, struct StringPair)
 {
   (void)inpText;
   return NULL;
 }
 
-int idsh_exec(char ** cmdTok)
+int idsh_exec(struct TokenPair)
 {
   (void)cmdTok;
   return 0;
