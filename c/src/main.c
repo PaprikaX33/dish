@@ -10,8 +10,8 @@ int main(int argc, char ** argv)
   if((retcode = arg_parse(argc, argv))){
     return (retcode < 0 ? retcode : 0);
   }
-  printf("Hello World\n");
-  return 0;
+
+  return idsh_loop();
 }
 
 static void write_help(void);
