@@ -31,6 +31,7 @@
 
 *** Milestone C
     1. Script
+    2. Customization and configuration files
 
 *** Milestone D
     2. Script sourcing
