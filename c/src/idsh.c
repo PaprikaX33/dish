@@ -36,6 +36,7 @@ int idsh_loop(void)
   };
   if(!string.str){
     fprintf(stderr, "Unable to allocate memory!");
+    free(token.tok);
     return -1;
   }
   int loop;
@@ -44,6 +45,8 @@ int idsh_loop(void)
     printf("IdSH> ");
     loop = idsh_exec(token = idsh_tokenize(token, string = idsh_getline(string)));
   }while(loop);
+  free(token.tok);
+  free(string.str);
   return 0;
 }
 
@@ -74,18 +77,20 @@ struct StringPair idsh_getline(struct StringPair str)
   return str;
 }
 
-struct TokenPair idsh_tokenize(struct TokenPair tok, struct StringPair str)
+struct TokenPair idsh_tokenize(struct TokenPair tok, struct StringPair strng)
 {
-  for(size_t i = 0; i < 20; i++){
-    printf("%x ", str.str[i]);
+  //size_t pos = 0;
+  for(char * str = strng.str; *str != '\0'; str++){
   }
-  printf("\nSize: %lu\n", str.len);
+  tok.tok[0] = NULL;
   return tok;
 }
 
-int idsh_exec(struct TokenPair tok)
+int idsh_exec(struct TokenPair tokn)
 {
-  (void)tok;
+  for(char ** tok = tokn.tok; *tok != NULL; tok++){
+    puts(*tok);
+  }
   return 0;
 }
 //getchar();
