@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <errno.h>
 
 #define MIN_BUFFSIZE 1024
 #define MIN_TOKEN 16
@@ -120,6 +122,9 @@ int idsh_exec(struct TokenPair tokn)
   }
   if(!strcmp(tokn.tok[0], "exit") || !strcmp(tokn.tok[0], "quit")){
     return 0;
+  }
+  if(execvp(tokn.tok[0], tokn.tok) == -1) {
+    perror("idsh");
   }
   return 1;
 }
