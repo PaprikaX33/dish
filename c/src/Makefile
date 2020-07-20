@@ -3,8 +3,8 @@ prefix		= /usr/local
 exec_prefix	= $(prefix)
 bindir		= $(exec_prefix)/bin
 version_mj	= 0
-version_mn	= 1
-version_pt	= 0
+version_mn	= 2
+version_pt	= 1
 
 source_file	= main idsh
 header_file	= IdshStart.h

@@ -5,9 +5,9 @@
      - [X] Valid program check
      - [X] Execute
      - [ ] Loop
-  2. [ ] Program Invocation
+  2. [-] Program Invocation
      - [ ] Fork
-     - [ ] Exec
+     - [X] Exec
   3. [X] Basic flags: [3/3]
      - [X] Help [2/2]
        - [X] Flags
