@@ -1,12 +1,12 @@
-* MILESTONE A [1/3]
-  1. [-] REPL [80%]
+* MILESTONE A [3/3]
+  1. [X] REPL [100%]
      - [X] Read
      - [X] Tokenize
      - [X] Valid program check
      - [X] Execute
-     - [ ] Loop
-  2. [-] Program Invocation
-     - [ ] Fork
+     - [X] Loop
+  2. [X] Program Invocation
+     - [X] Fork
      - [X] Exec
   3. [X] Basic flags: [3/3]
      - [X] Help [2/2]

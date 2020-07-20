@@ -4,9 +4,13 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #define MIN_BUFFSIZE 1024
 #define MIN_TOKEN 16
+
+static int exitStats = 0;
 
 struct StringPair {
   char * str;
@@ -44,9 +48,10 @@ int idsh_loop(void)
   int loop;
 
   do{
-    printf("IdSH> ");
+    printf("%02d-IdSH> ", exitStats);
     loop = idsh_exec(token = idsh_tokenize(token, string = idsh_getline(string)));
   }while(loop);
+  puts("Terminating IdSH");
   free(token.tok);
   free(string.str);
   return 0;
@@ -123,8 +128,27 @@ int idsh_exec(struct TokenPair tokn)
   if(!strcmp(tokn.tok[0], "exit") || !strcmp(tokn.tok[0], "quit")){
     return 0;
   }
-  if(execvp(tokn.tok[0], tokn.tok) == -1) {
-    perror("idsh");
+  //Call external program as shell
+  pid_t frk = fork();
+  if(frk == -1){
+    perror("idsh:");
+    return 1;
+  }
+  if(frk){
+    //mother
+    int wstat;
+    if(waitpid(frk, &wstat, 0) == -1) {
+      perror("idsh");
+      exit(-1);
+    }
+    exitStats = WEXITSTATUS(wstat);
+  }
+  else{
+    //Child
+    if(execvp(tokn.tok[0], tokn.tok) == -1) {
+      perror("idsh");
+      exit(-1);
+    }
   }
   return 1;
 }
