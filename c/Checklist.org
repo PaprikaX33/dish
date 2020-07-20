@@ -21,5 +21,6 @@
 
 * Milestone B [/]
   1. [ ] Arithmetic
+     - [ ] Variable
   2. [ ] Escape Flag
   3. [ ] Quoted string

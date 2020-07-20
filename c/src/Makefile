@@ -21,9 +21,9 @@ compile_name := $(exec_name)
 cflags := -std=c11 -g -Og -Wall -Wextra -Wshadow -Wcast-align -Wunused -Wpedantic -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2
 vrflag = -DVERSION_MAJOR=$(version_mj) -DVERSION_MINOR=$(version_mn) -DVERSION_PATCH=$(version_pt)
 
-all : idsh
+all : $(exec_name)
 
-idsh : $(object_file)
+$(exec_name) : $(object_file)
 	$(CC) $(cflags) -o $(compile_name) $(object_file)
 
 main.o :  main.c $(includ_file) $(header_file)
