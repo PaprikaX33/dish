@@ -113,8 +113,8 @@ struct TokenPair idsh_tokenize(struct TokenPair tok, struct StringPair strng)
 
 int idsh_exec(struct TokenPair tokn)
 {
-  for(char ** tok = tokn.tok; *tok != NULL; tok++){
-    puts(*tok);
+  if(!strcmp(tokn.tok[0], "exit") || !strcmp(tokn.tok[0], "quit")){
+    return 0;
   }
-  return 0;
+  return 1;
 }
