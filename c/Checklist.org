@@ -1,0 +1,26 @@
+* MILESTONE A [3/3]
+  1. [X] REPL [100%]
+     - [X] Read
+     - [X] Tokenize
+     - [X] Valid program check
+     - [X] Execute
+     - [X] Loop
+  2. [X] Program Invocation
+     - [X] Fork
+     - [X] Exec
+  3. [X] Basic flags: [3/3]
+     - [X] Help [2/2]
+       - [X] Flags
+       - [X] Text
+     - [X] version [2/2]
+       - [X] Flags
+       - [X] Text
+     - [X] Invalid [2/2]
+       - [X] Detection
+       - [X] Text
+
+* Milestone B [/]
+  1. [ ] Arithmetic
+     - [ ] Variable
+  2. [ ] Escape Flag
+  3. [ ] Quoted string
