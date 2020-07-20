@@ -42,9 +42,13 @@
     3. Functions
 
 *** Milestone F
-    1. History
+    1. Short Term History
+    2. Raw Mode to remove the buffering and the non character key
 
 *** Milestone G
+    1. Long Term History
+
+*** Milestone H
     2. Autocomplete
 
 ** Planned Lang: [0/1]
