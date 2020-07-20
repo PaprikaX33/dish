@@ -67,7 +67,7 @@ struct StringPair idsh_getline(struct StringPair str)
     pos++;
 
     if(pos == str.len){
-      if(!(str.str = realloc(str.str, str.len * 2))){
+      if(!(str.str = realloc(str.str, str.len * 2 * sizeof(char)))){
         fprintf(stderr, "Unable to allocate memory!");
         exit(-1);
       }
@@ -79,11 +79,36 @@ struct StringPair idsh_getline(struct StringPair str)
 
 struct TokenPair idsh_tokenize(struct TokenPair tok, struct StringPair strng)
 {
-  //size_t pos = 0;
-  for(char * str = strng.str; *str != '\0'; str++){
-  }
-  tok.tok[0] = NULL;
-  return tok;
+  size_t pos = 0;
+  char * str = strng.str;
+  do{
+    //Skip whitespace
+    while(*str == ' '){
+      str++;
+    }
+    if(*str == '\0'){
+      tok.tok[pos] = NULL;
+      return tok;
+    }
+    tok.tok[pos] = str;
+    pos++;
+    if(pos == tok.len){
+      if(!(tok.tok = realloc(tok.tok, tok.len * 2 * sizeof(char*)))){
+        fprintf(stderr, "Unable to allocate memory!");
+        exit(-1);
+      }
+      tok.len *= 2;
+    }
+    while(*str != ' '){
+      if(*str == '\0'){
+        tok.tok[pos] = NULL;
+        return tok;
+      }
+      str++;
+    }
+    *str = '\0';
+    str++;
+  }while(1);
 }
 
 int idsh_exec(struct TokenPair tokn)
@@ -93,4 +118,3 @@ int idsh_exec(struct TokenPair tokn)
   }
   return 0;
 }
-//getchar();
