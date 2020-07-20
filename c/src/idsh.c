@@ -99,6 +99,7 @@ struct TokenPair idsh_tokenize(struct TokenPair tok, struct StringPair strng)
       }
       tok.len *= 2;
     }
+    //Find next whitespace
     while(*str != ' '){
       if(*str == '\0'){
         tok.tok[pos] = NULL;
@@ -113,6 +114,10 @@ struct TokenPair idsh_tokenize(struct TokenPair tok, struct StringPair strng)
 
 int idsh_exec(struct TokenPair tokn)
 {
+  if(tokn.tok[0] == NULL){
+    //Check for empty token
+    return 1;
+  }
   if(!strcmp(tokn.tok[0], "exit") || !strcmp(tokn.tok[0], "quit")){
     return 0;
   }
