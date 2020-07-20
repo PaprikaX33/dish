@@ -34,13 +34,17 @@
     2. Customization and configuration files
 
 *** Milestone D
+    1. IO redirection
+    2. Pipe
+
+*** Milestone E
     2. Script sourcing
     3. Functions
 
-*** Milestone E
+*** Milestone F
     1. History
 
-*** Milestone F
+*** Milestone G
     2. Autocomplete
 
 ** Planned Lang: [0/1]
