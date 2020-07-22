@@ -13,7 +13,7 @@
 
    List of features / specification of the target features
 
-*** Basic Feature: (MILESTONE A)
+*** Pack A: Bare bone minimum
     1. REPL
     2. Program Invocation
     3. Basic flags:
@@ -24,28 +24,32 @@
          - -V / --version
        - Invalid flag
 
-*** Milestone B
+*** Pack B: basic usability as a shell
+    1. Directory change (cd)
+    2. Environment variable substitution
+
+*** PACK B
     1. Arithmetic
     2. Escape Flag
     3. Quoted string
 
-*** Milestone C
+*** PACK C: Scripting
     1. Script
     2. Customization and configuration files
 
-*** Milestone D
+*** PACK D: IO redirection
     1. IO redirection
     2. Pipe
 
-*** Milestone E
+*** PACK E
     2. Script sourcing
     3. Functions
 
-*** Milestone F
+*** PACK F: Readline-like functionality
     1. Short Term History
     2. Raw Mode to remove the buffering and the non character key
 
-*** Milestone G
+*** PACK G
     1. Long Term History
 
 *** Milestone H
