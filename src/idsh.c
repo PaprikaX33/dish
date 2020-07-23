@@ -13,6 +13,7 @@
 #define EXIT_STAT_STR_LENGTH 64
 static int exitStats = 0;
 static char strExitStats[EXIT_STAT_STR_LENGTH];
+static char emptyString[] = "";
 
 struct StringPair {
   char * str;
@@ -174,11 +175,17 @@ struct TokenPair idsh_replace_args(struct TokenPair tok)
       //IS VARIABLE / need to be subsituted
       char * const toknStr = tokstr + 1;
       if(!strcmp(toknStr, "?")){
-        //return the string for exit status
-        //int snprintf(char *str, size_t size, const char *format, ...)
+        //Is asking for the latest return code
         snprintf(strExitStats, EXIT_STAT_STR_LENGTH, "%d", exitStats);
         tok.tok[i] = strExitStats;
         continue;
+      }
+      //TODO: check for Internal variable
+
+      //Is environment variable
+      tok.tok[i] = getenv(toknStr);
+      if(!tok.tok[i]){
+        tok.tok[i] = emptyString;
       }
     }
   }
