@@ -39,32 +39,33 @@ DISH: Idiotic shell.
    1. Directory change (cd)
    2. Environment variable substitution
 
-** PACK B
+** Pack C: Scripting
+   1. Script
+   2. Customization and configuration files
+
+** Pack D: Scripting language
    1. Arithmetic
    2. Escape Flag
    3. Quoted string
 
-** PACK C: Scripting
-   1. Script
-   2. Customization and configuration files
-
-** PACK D: IO redirection
+** Pack E: IO redirection
    1. IO redirection
    2. Pipe
 
-** PACK E
+** Pack F: Inline scripting
    2. Script sourcing
    3. Functions
 
-** PACK F: Readline-like functionality
+** Pack G: Readline-like functionality
    1. Short Term History
    2. Raw Mode to remove the buffering and the non character key
 
-** PACK G
+** Pack H
    1. Long Term History
 
-** Milestone H
-   2. Autocomplete
+** Pack I
+   1. Autocomplete
 
 * TODO:
   1. Restructure the PACK list to have a clearer distinction whether it is required by POSIX, or an extension of dish
+  2. Use a proper build tools
