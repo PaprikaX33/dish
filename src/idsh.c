@@ -50,8 +50,8 @@ int idsh_loop(void)
     free(token.tok);
     return -1;
   }
+  //TODO: Modify the $SHELL environment variable
   int loop;
-
   do{
     printf("%02d-IdSH> ", exitStats);
     loop = idsh_exec(token = idsh_replace_args(idsh_tokenize(token, string = idsh_getline(string))));

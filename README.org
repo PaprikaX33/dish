@@ -66,6 +66,9 @@ DISH: Idiotic shell.
 ** Pack I
    1. Autocomplete
 
+** Pack J
+   1. Modify the environment variable appropriately
+
 * TODO:
   1. Restructure the PACK list to have a clearer distinction whether it is required by POSIX, or an extension of dish
   2. Use a proper build tools
