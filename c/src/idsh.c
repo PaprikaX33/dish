@@ -1,4 +1,5 @@
 #include "IdshStart.h"
+#include "ChDir.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -127,6 +128,10 @@ int idsh_exec(struct TokenPair tokn)
   }
   if(!strcmp(tokn.tok[0], "exit") || !strcmp(tokn.tok[0], "quit")){
     return 0;
+  }
+  if(!strcmp(tokn.tok[0], "cd")){
+    execute_changedir(tokn.tok+1);
+    return 1;
   }
   //Call external program as shell
   pid_t frk = fork();

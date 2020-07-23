@@ -1,4 +1,4 @@
-* MILESTONE A [3/3]
+* PACK A [100%]
   1. [X] REPL [100%]
      - [X] Read
      - [X] Tokenize
@@ -19,7 +19,11 @@
        - [X] Detection
        - [X] Text
 
-* Milestone B [/]
+* PACK B [50%]
+  1. [X] Directory change (cd)
+  2. [ ] Environment variable substitution
+
+* PACK C [0%]
   1. [ ] Arithmetic
      - [ ] Variable
   2. [ ] Escape Flag
