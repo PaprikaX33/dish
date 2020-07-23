@@ -28,3 +28,6 @@
      - [ ] Variable
   2. [ ] Escape Flag
   3. [ ] Quoted string
+
+* PACK J [0%]
+  1. [ ] Modify the environment variable appropriately
