@@ -24,7 +24,7 @@ DISH: Idiotic shell.
 
   The implemented features are grouped to multiple "PACKS" with a similar functionality implemented
 
-** Pack A: Bare bone minimum
+** Pack A: Bare Bone Minimum
    1. REPL
    2. Program Invocation
    3. Basic flags:
@@ -35,7 +35,7 @@ DISH: Idiotic shell.
         - -V / --version
       - Invalid flag
 
-** Pack B: basic usability as a shell
+** Pack B: Basic Usability as a Shell
    1. Directory change (cd)
    2. Environment variable substitution
 
