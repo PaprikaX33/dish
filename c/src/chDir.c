@@ -25,11 +25,11 @@ void execute_changedir(char const * const * token)
     }
     else {
       if((*addr)[0] == '-'){
-        if((*addr)[1] == '-'){
+        char const * const flg = (*addr) + 1;
+        if(!strcmp(flg, "-")){
           delimit_mode = 1;
           continue;
         }
-        char const * const flg = (*addr) + 1;
         //Check for flags
         if(!strcmp(flg, "-help") || !strcmp(flg, "?")){
           puts(cdHelpString);
