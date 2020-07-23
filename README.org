@@ -1,59 +1,71 @@
-#+TITLE: idsh
+#+TITLE: dish
 
-* Idiotic Shell
+DISH: Idiotic shell.
+
+
+* Purpose
+
   - A shell designed to be naive and bare bones.
   - Could be used for testing language
 
-** Assumptions
+* Assumptions
 
-   A list of assumptions to simplify the design
-   - Assumes the terminal width as 80 for the response on the flag
+  A list of assumptions to simplify the design
+  - Assumes the terminal width is 80 characters wide.
 
-** Feature List / Limited Specification
+* POSIX
 
-   List of features / specification of the target features
+  The shell is hopefully eventually be POSIX compliant.
 
-*** Pack A: Bare bone minimum
-    1. REPL
-    2. Program Invocation
-    3. Basic flags:
-       - Help
-         - -h / --help
-         - -?
-       - version
-         - -V / --version
-       - Invalid flag
+  Currently the main objective of this project is to have enough feature to be usable as a shell,
+  and POSIX compliantness is not the highest priority.
 
-*** Pack B: basic usability as a shell
-    1. Directory change (cd)
-    2. Environment variable substitution
+* Feature Pack List
 
-*** PACK B
-    1. Arithmetic
-    2. Escape Flag
-    3. Quoted string
+  The implemented features are grouped to multiple "PACKS" with a similar functionality implemented
 
-*** PACK C: Scripting
-    1. Script
-    2. Customization and configuration files
+** Pack A: Bare Bone Minimum
+   1. REPL
+   2. Program Invocation
+   3. Basic flags:
+      - Help
+        - -h / --help
+        - -?
+      - version
+        - -V / --version
+      - Invalid flag
 
-*** PACK D: IO redirection
-    1. IO redirection
-    2. Pipe
+** Pack B: Basic Usability as a Shell
+   1. Directory change (cd)
+   2. Environment variable substitution
 
-*** PACK E
-    2. Script sourcing
-    3. Functions
+** Pack C: Scripting
+   1. Script
+   2. Customization and configuration files
 
-*** PACK F: Readline-like functionality
-    1. Short Term History
-    2. Raw Mode to remove the buffering and the non character key
+** Pack D: Scripting language
+   1. Arithmetic
+   2. Escape Flag
+   3. Quoted string
 
-*** PACK G
-    1. Long Term History
+** Pack E: IO redirection
+   1. IO redirection
+   2. Pipe
 
-*** Milestone H
-    2. Autocomplete
+** Pack F: Inline scripting
+   2. Script sourcing
+   3. Functions
 
-** Planned Lang: [0/1]
-   - [ ] C
+** Pack G: Readline-like functionality
+   1. Short Term History
+   2. Raw Mode to remove the buffering and the non character key
+
+** Pack H
+   1. Long Term History
+
+** Pack I
+   1. Autocomplete
+
+* TODO:
+  1. Restructure the PACK list to have a clearer distinction whether it is required by POSIX, or an extension of dish
+  2. Use a proper build tools
