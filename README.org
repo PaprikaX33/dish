@@ -15,7 +15,10 @@ DISH: Idiotic shell.
 
 * POSIX
 
-  The shell is hopefully be POSIX compliant.
+  The shell is hopefully eventually be POSIX compliant.
+
+  Currently the main objective of this project is to have enough feature to be usable as a shell,
+  and POSIX compliantness is not the highest priority.
 
 * Feature Pack List
 
