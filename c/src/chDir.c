@@ -1,7 +1,8 @@
 #include "ChDir.h"
 #include <stdio.h>
 #include <string.h>
-
+#include <unistd.h>
+#include <errno.h>
 
 static char const * cdHelpString =
   "cd: cd <dir>\n\n"
@@ -50,4 +51,7 @@ void execute_changedir(char const * const * token)
     return;
   }
   printf("Changing to: %s\n", dir);
+  if(chdir(dir)){
+    perror("idsh: cd");
+  }
 }
