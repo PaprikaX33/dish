@@ -6,7 +6,7 @@ version_mj	= 0
 version_mn	= 2
 version_pt	= 1
 
-source_file	= main idsh
+source_file	= main idsh chDir
 header_file	= IdshStart.h
 includ_file	= verString.inc
 csrc_file	= $(source_file:%=%.o)
@@ -30,7 +30,10 @@ main.o :  main.c $(includ_file) $(header_file)
 	$(CC) $(cflags) $(vrflag) -c -o $@ main.c
 
 idsh.o : idsh.c $(header_file)
-	$(CC) $(cflags) -c -o $@ idsh.c
+	$(CC) $(cflags) -c -o $@ $<
+
+chDir.o : chDir.c $(header_file)
+	$(CC) $(cflags) -c -o $@ $<
 
 # $(object_file) : %.o :  %.c
 # 	$(CC) $(cflags) -c -o $@ $<
