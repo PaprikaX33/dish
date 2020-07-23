@@ -12,11 +12,11 @@ static char const * cdHelpString =
   "    implemented yet."
   ;
 
-void execute_changedir(char const * const * token)
+void execute_changedir(char ** token)
 {
   char const * dir = NULL;
   int delimit_mode = 0;
-  for(char const * const * addr = token; *addr != NULL; addr++){
+  for(char ** addr = token; *addr != NULL; addr++){
     if(delimit_mode){
       if(dir){
         fprintf(stderr, "cd: Too many arguments\n");
