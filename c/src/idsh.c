@@ -130,7 +130,7 @@ int idsh_exec(struct TokenPair tokn)
     return 0;
   }
   if(!strcmp(tokn.tok[0], "cd")){
-    execute_changedir(tokn.tok);
+    execute_changedir(tokn.tok+1);
     return 1;
   }
   //Call external program as shell
