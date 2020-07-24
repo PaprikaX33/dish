@@ -45,6 +45,11 @@
        4. cat<foo
      - It seems the redirection need to be parsed before tokenization
   2. [ ] Pipe
+     Possible Syntax:
+     1. foo | bar
+     2. foo| bar
+     3. foo |bar
+     4. foo|bar
 
 * PACK J [0%]
   1. [ ] Modify the environment variable appropriately
