@@ -15,16 +15,6 @@ static int exitStats = 0;
 static char strExitStats[EXIT_STAT_STR_LENGTH];
 static char emptyString[] = "";
 
-struct StringPair {
-  char * str;
-  size_t len;
-};
-
-struct TokenPair {
-  char ** tok;
-  size_t  len;
-};
-
 static struct StringPair idsh_getline(struct StringPair);
 static struct TokenPair idsh_tokenize(struct TokenPair, struct StringPair);
 static struct TokenPair idsh_replace_args(struct TokenPair);
