@@ -49,7 +49,7 @@ DISH: Idiotic shell.
    3. Quoted string
 
 ** Pack E: IO redirection
-   1. IO redirection
+   1. File IO redirection
    2. Pipe
 
 ** Pack F: Inline scripting

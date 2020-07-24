@@ -19,15 +19,20 @@
        - [X] Detection
        - [X] Text
 
-* PACK B [50%]
+* PACK B [100%]
   1. [X] Directory change (cd)
-  2. [ ] Environment variable substitution
+  2. [X] Environment variable substitution
 
 * PACK C [0%]
   1. [ ] Arithmetic
      - [ ] Variable
   2. [ ] Escape Flag
   3. [ ] Quoted string
+
+
+* Pack E:[%]
+  1. [ ] File IO redirection
+  2. [ ] Pipe
 
 * PACK J [0%]
   1. [ ] Modify the environment variable appropriately
