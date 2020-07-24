@@ -1,5 +1,6 @@
 #include "Dish.h"
 #include "ChDir.h"
+#include "ExecLoc.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -23,6 +24,12 @@ static int idsh_exec(struct TokenPair);
 
 int idsh_loop(void)
 {
+  char * progName = getLoc();
+  if(!progName){
+    fprintf(stderr, "Unable to allocate memory!");
+    return -1;
+  }
+  printf("PROGRAM NAME: %s\n", progName);
   struct TokenPair token = {
                             .tok = malloc(sizeof(char *) * MIN_TOKEN),
                             .len = MIN_TOKEN
@@ -49,6 +56,7 @@ int idsh_loop(void)
   puts("Terminating IdSH");
   free(token.tok);
   free(string.str);
+  freeLoc();
   return 0;
 }
 
