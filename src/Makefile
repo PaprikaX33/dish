@@ -6,7 +6,7 @@ version_mj	= 0
 version_mn	= 2
 version_pt	= 1
 
-source_file	= main idsh chDir
+source_file	= main loop chDir
 header_file	= Dish.h ChDir.h
 includ_file	= verString.inc
 csrc_file	= $(source_file:%=%.o)
@@ -29,7 +29,7 @@ $(exec_name) : $(object_file)
 main.o :  main.c $(includ_file) Dish.h
 	$(CC) $(cflags) $(vrflag) -c -o $@ main.c
 
-idsh.o : idsh.c Dish.h ChDir.h
+loop.o : loop.c Dish.h ChDir.h
 	$(CC) $(cflags) -c -o $@ $<
 
 chDir.o : chDir.c ChDir.h
