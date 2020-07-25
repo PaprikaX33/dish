@@ -9,24 +9,18 @@
 
 int set_shell_env(void)
 {
-  char * execName = NULL;
-  size_t execLen = 0;
-  if(!execName){
-    execLen = MIN_EXEC_LEN;
-    execName = malloc(MIN_EXEC_LEN * sizeof(char));
-  }
+  char * execName = malloc(MIN_EXEC_LEN * sizeof(char));
+  size_t execLen = MIN_EXEC_LEN;
   if(!execName){
     return NULL;
   }
-
   ssize_t retval;
   int loop = 0;
   do{
     loop = 0;
     retval = readlink("/proc/self/exe", execName, execLen);
     if(retval < 0){
-      perror("Dish");
-      exit(-1);
+      return -1;
     }
     if(((size_t) retval) == execLen){
       //resize the execName
@@ -41,8 +35,9 @@ int set_shell_env(void)
   }while(loop);
 
   if(setenv("$SHELL", progName, 1) < 0){
-    perror("Dish");
     return -1;
   }
-  return execName;
+  free(execName);
+  //return execName;
+  return 0;
 }

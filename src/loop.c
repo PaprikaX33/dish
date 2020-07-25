@@ -24,7 +24,10 @@ static int idsh_exec(struct TokenPair);
 
 int idsh_loop(void)
 {
-  printf("PROGRAM NAME: %s\n", progName);
+  if(set_shell_env()){
+    perror("Dish");
+    return -1;
+  }
   struct TokenPair token = {
                             .tok = malloc(sizeof(char *) * MIN_TOKEN),
                             .len = MIN_TOKEN
