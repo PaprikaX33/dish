@@ -52,4 +52,7 @@
      4. foo|bar
 
 * PACK J [0%]
-  1. [ ] Modify the environment variable appropriately
+  1. [ ] Modify the environment variable appropriately [0%]
+     - [ ] $SHELL
+     - [ ] $PWD
+     - [ ] $OLDPWD

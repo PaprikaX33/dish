@@ -24,11 +24,6 @@ static int idsh_exec(struct TokenPair);
 
 int idsh_loop(void)
 {
-  char * progName = getLoc();
-  if(!progName){
-    fprintf(stderr, "Unable to allocate memory!");
-    return -1;
-  }
   printf("PROGRAM NAME: %s\n", progName);
   struct TokenPair token = {
                             .tok = malloc(sizeof(char *) * MIN_TOKEN),

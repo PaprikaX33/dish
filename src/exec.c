@@ -7,12 +7,10 @@
 #include <sys/types.h>
 #define MIN_EXEC_LEN 16
 
-
-static char * execName = NULL;
-static size_t execLen = 0;
-
-char * getLoc(void)
+int set_shell_env(void)
 {
+  char * execName = NULL;
+  size_t execLen = 0;
   if(!execName){
     execLen = MIN_EXEC_LEN;
     execName = malloc(MIN_EXEC_LEN * sizeof(char));
@@ -42,11 +40,9 @@ char * getLoc(void)
     }
   }while(loop);
 
+  if(setenv("$SHELL", progName, 1) < 0){
+    perror("Dish");
+    return -1;
+  }
   return execName;
-}
-
-void freeLoc(void)
-{
-  free(execName);
-  execName = NULL;
 }

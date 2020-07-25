@@ -1,7 +1,6 @@
 #ifndef DISH_EXECUTABLE_LOCATION_HEAD_HPP
 #define DISH_EXECUTABLE_LOCATION_HEAD_HPP
 
-char * getLoc(void);
-void freeLoc(void);
+int set_shell_env(void);
 
 #endif //DISH_EXECUTABLE_LOCATION_HEAD_HPP
