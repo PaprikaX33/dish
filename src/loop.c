@@ -1,5 +1,6 @@
-#include "IdshStart.h"
+#include "Dish.h"
 #include "ChDir.h"
+#include "ExecLoc.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -15,16 +16,6 @@ static int exitStats = 0;
 static char strExitStats[EXIT_STAT_STR_LENGTH];
 static char emptyString[] = "";
 
-struct StringPair {
-  char * str;
-  size_t len;
-};
-
-struct TokenPair {
-  char ** tok;
-  size_t  len;
-};
-
 static struct StringPair idsh_getline(struct StringPair);
 static struct TokenPair idsh_tokenize(struct TokenPair, struct StringPair);
 static struct TokenPair idsh_replace_args(struct TokenPair);
@@ -33,6 +24,10 @@ static int idsh_exec(struct TokenPair);
 
 int idsh_loop(void)
 {
+  if(set_shell_env()){
+    perror(dishPerrorTag);
+    return -1;
+  }
   struct TokenPair token = {
                             .tok = malloc(sizeof(char *) * MIN_TOKEN),
                             .len = MIN_TOKEN
@@ -50,13 +45,12 @@ int idsh_loop(void)
     free(token.tok);
     return -1;
   }
-  //TODO: Modify the $SHELL environment variable
   int loop;
   do{
     printf("%02d-IdSH> ", exitStats);
     loop = idsh_exec(token = idsh_replace_args(idsh_tokenize(token, string = idsh_getline(string))));
   }while(loop);
-  puts("Terminating IdSH");
+  puts("Terminating DiSH");
   free(token.tok);
   free(string.str);
   return 0;
@@ -143,14 +137,14 @@ int idsh_exec(struct TokenPair tokn)
   //Call external program as shell
   pid_t frk = fork();
   if(frk == -1){
-    perror("idsh:");
+    perror(dishPerrorTag);
     return 1;
   }
   if(frk){
     //mother
     int wstat;
     if(waitpid(frk, &wstat, 0) == -1) {
-      perror("idsh");
+      perror(dishPerrorTag);
       exit(-1);
     }
     exitStats = WEXITSTATUS(wstat);
@@ -158,7 +152,7 @@ int idsh_exec(struct TokenPair tokn)
   else{
     //Child
     if(execvp(tokn.tok[0], tokn.tok) == -1) {
-      perror("idsh");
+      perror(dishPerrorTag);
       exit(-1);
     }
   }
@@ -191,3 +185,5 @@ struct TokenPair idsh_replace_args(struct TokenPair tok)
   }
   return tok;
 }
+
+char * dishPerrorTag = "DiSH";

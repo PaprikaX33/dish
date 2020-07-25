@@ -19,9 +19,9 @@
        - [X] Detection
        - [X] Text
 
-* PACK B [50%]
+* PACK B [100%]
   1. [X] Directory change (cd)
-  2. [ ] Environment variable substitution
+  2. [X] Environment variable substitution
 
 * PACK C [0%]
   1. [ ] Arithmetic
@@ -29,5 +29,31 @@
   2. [ ] Escape Flag
   3. [ ] Quoted string
 
+
+* Pack E:[0%]
+  1. [ ] File IO redirection
+     Possible Syntax:
+     - Outward:
+       1. echo foo > bar
+       2. echo foo> bar
+       3. echo foo >bar
+       4. echo foo>bar
+     - Inward
+       1. cat < foo
+       2. cat< foo
+       3. cat <foo
+       4. cat<foo
+     - It seems the redirection need to be parsed before tokenization
+  2. [ ] Pipe
+     Possible Syntax:
+     1. foo | bar
+     2. foo| bar
+     3. foo |bar
+     4. foo|bar
+
 * PACK J [0%]
-  1. [ ] Modify the environment variable appropriately
+  1. [-] Modify the environment variable appropriately [75%]
+     - [X] $SHELL
+     - [X] $PWD
+     - [X] $OLDPWD
+     - [ ] etc...

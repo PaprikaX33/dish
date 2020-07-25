@@ -1,9 +1,14 @@
+#define _POSIX_C_SOURCE 200112L
 #include "ChDir.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
 
+#define MIN_PWD_LEN 64
+
+static char const * cdErrorTag = "DiSH: cd";
 static char const * cdHelpString =
   "cd: cd <dir>\n\n"
   "    Change the working directory\n\n"
@@ -50,9 +55,43 @@ void execute_changedir(char ** token)
     fprintf(stderr, "cd: Empty DIR is not supported yet\n");
     return;
   }
-  //TODO: change the PWD environment variable
   printf("Changing to: %s\n", dir);
   if(chdir(dir)){
-    perror("idsh: cd");
+    perror(cdErrorTag);
+    return;
+  }
+  if(setenv("OLDPWD", getenv("PWD"), 1) < 0){
+    perror(cdErrorTag);
+    return;
+  }
+  size_t len = MIN_PWD_LEN;
+  int loops = 0;
+  char * buff = malloc(MIN_PWD_LEN * sizeof(char));
+  if(!buff){
+    perror(cdErrorTag);
+    return;
+  }
+  do{
+    loops = 0;
+    char * retbuff = getcwd(buff, len);
+    if(!retbuff){
+      if(errno == ERANGE){
+        loops = 1;
+        len *= 2;
+        buff = malloc(len* sizeof(char));
+        if(!buff){
+          perror(cdErrorTag);
+          return;
+        }
+      }
+      else {
+        perror(cdErrorTag);
+        return;
+      }
+    }
+  }while(loops);
+  if(setenv("PWD", buff, 1) < 0){
+    perror(cdErrorTag);
+    return;
   }
 }
