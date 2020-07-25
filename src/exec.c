@@ -1,5 +1,5 @@
-#include "ExecLoc.h"
 #define _POSIX_C_SOURCE 200112L
+#include "ExecLoc.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <stddef.h>
