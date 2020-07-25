@@ -38,6 +38,5 @@ int set_shell_env(void)
     return -1;
   }
   free(execName);
-  //return execName;
   return 0;
 }

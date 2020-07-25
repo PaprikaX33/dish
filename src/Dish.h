@@ -13,4 +13,6 @@ struct TokenPair {
   size_t  len;
 };
 
+extern char * dishPerrorTag;
+
 #endif //DISH_HEAD_H
