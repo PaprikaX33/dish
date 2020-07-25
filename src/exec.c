@@ -5,7 +5,7 @@
 #include <stddef.h>
 #include <unistd.h>
 #include <sys/types.h>
-#define MIN_EXEC_LEN 16
+#define MIN_EXEC_LEN 64
 
 int set_shell_env(void)
 {
