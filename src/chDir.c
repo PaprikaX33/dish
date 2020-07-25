@@ -92,7 +92,7 @@ void execute_changedir(char ** token)
       }
     }
   }while(loops);
-  if(setenv("PWD", dir, 1) < 0){
+  if(setenv("PWD", buff, 1) < 0){
     perror(cdErrorTag);
     return;
   }
