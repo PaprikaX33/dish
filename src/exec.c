@@ -22,8 +22,9 @@ char * getLoc(void)
   }
 
   ssize_t retval;
-  int loops = 0;
+  int loop = 0;
   do{
+    loop = 0;
     retval = readlink("/proc/self/exe", execName, execLen);
     if(retval < 0){
       perror("Dish");
@@ -31,6 +32,7 @@ char * getLoc(void)
     }
     if(((size_t) retval) == execLen){
       //resize the execName
+      loop = 1;
       free(execName);
       execLen *= 2u;
       execName = malloc(execLen * sizeof(char));
@@ -38,7 +40,7 @@ char * getLoc(void)
         return NULL;
       }
     }
-  }while(loops);
+  }while(loop);
 
   return execName;
 }
