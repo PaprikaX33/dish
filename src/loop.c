@@ -54,7 +54,6 @@ int idsh_loop(void)
   puts("Terminating IdSH");
   free(token.tok);
   free(string.str);
-  freeLoc();
   return 0;
 }
 

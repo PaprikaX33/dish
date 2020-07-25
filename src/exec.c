@@ -12,7 +12,7 @@ int set_shell_env(void)
   char * execName = malloc(MIN_EXEC_LEN * sizeof(char));
   size_t execLen = MIN_EXEC_LEN;
   if(!execName){
-    return NULL;
+    return -1;
   }
   ssize_t retval;
   int loop = 0;
@@ -29,12 +29,12 @@ int set_shell_env(void)
       execLen *= 2u;
       execName = malloc(execLen * sizeof(char));
       if(!execName){
-        return NULL;
+        return -1;
       }
     }
   }while(loop);
 
-  if(setenv("$SHELL", progName, 1) < 0){
+  if(setenv("SHELL", execName, 1) < 0){
     return -1;
   }
   free(execName);
