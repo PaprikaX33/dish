@@ -55,13 +55,11 @@ void execute_changedir(char ** token)
     fprintf(stderr, "cd: Empty DIR is not supported yet\n");
     return;
   }
-  //TODO: change the PWD environment variable
   printf("Changing to: %s\n", dir);
   if(chdir(dir)){
     perror(cdErrorTag);
     return;
   }
-  //char const * oldPWD = getenv("PWD");
   if(setenv("OLDPWD", getenv("PWD"), 1) < 0){
     perror(cdErrorTag);
     return;
