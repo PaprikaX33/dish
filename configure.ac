@@ -7,13 +7,17 @@ AC_INIT([dish], [0.2.2], [paprika.trisalted.pepper@protonmail.com])
 AC_CONFIG_SRCDIR([src/main.c])
 #AC_CONFIG_HEADERS([config.h])
 
+AM_INIT_AUTOMAKE([1.9 foreign])
+
 # Checks for programs.
 AC_PROG_CC
 
 # Checks for libraries.
 
 # Checks for header files.
-AC_CHECK_HEADERS([stddef.h stdlib.h string.h unistd.h sys/wait.h])
+AC_HEADER_STDC
+AC_HEADER_SYS_WAIT
+AC_CHECK_HEADERS([stddef.h stdlib.h string.h unistd.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_PID_T
@@ -26,4 +30,5 @@ AC_FUNC_MALLOC
 AC_FUNC_REALLOC
 AC_CHECK_FUNCS([getcwd setenv])
 
-AC_OUTPUT
+#AC_OUTPUT
+AC_OUTPUT(Makefile src/Makefile)
