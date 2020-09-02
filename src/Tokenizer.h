@@ -2,11 +2,11 @@
 #define DISH_TOKENIZER_HEAD_H
 
 enum TokenType{
-  STRING,
-  PIPE,
-  RIGHT_REDIR,
-  LEFT_REDIR,
-  END
+  TOK_STRING,
+  TOK_PIPE,
+  TOK_RIGHT_REDIR,
+  TOK_LEFT_REDIR,
+  TOK_END
 };
 
 struct TokenNode{
@@ -15,6 +15,7 @@ struct TokenNode{
 };
 
 char const * dish_tokenize(char const * str, struct TokenNode * tok);
-/* Return null pointer on failure */
+/* Returns the last char of the string + 1 */
+/* Returns null pointer on failure */
 
 #endif //DISH_TOKENIZER_HEAD_H
