@@ -27,13 +27,18 @@ char const * dish_tokenize(char const * str, struct TokenNode * tok)
     tok->type = TOK_END;
     return str+1;
   }
-  char * strBuff = malloc(sizeof(char) * MIN_STR_LEN);
-  size_t strLen = MIN_STR_LEN;
+  char * strBuff = 0;
   size_t strPos = 0;
-  while(!isspace(str[strPos])){
+  while(!isspace(str[strPos]) && str[strPos] != '\0'){
     strPos++;
   }
+  strBuff = malloc((sizeof(char) * strPos) + 1u);
+  if(!strBuff){
+    fprintf(stderr, "Unable to allocate memory!");
+    exit(-1);
+  }
   memcpy(strBuff, str, strPos);
+  strBuff[strPos] = '\0';
   tok->type = TOK_STRING;
   tok->str = strBuff;
   return str + strPos;
