@@ -15,6 +15,10 @@ char const * dish_tokenize(char const * str, struct TokenNode * tok)
   while(isspace(*str)){
     str++;
   }
+  /* A stop plug to test the end token */
+  while(*str != '\0'){
+    str++;
+  }
   if(*str == '\0'){
     tok->type = TOK_END;
     return str+1;
