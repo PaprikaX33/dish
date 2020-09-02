@@ -128,7 +128,7 @@ int dish_tok_test(void)
     switch(tok->type){
     default: break;
     case TOK_STRING:
-      puts(tok->str);
+      printf("<<TOKEN>> STR : %s\n", tok->str);
       break;
     case TOK_PIPE:
       puts("<<TOKEN>> PIPE");

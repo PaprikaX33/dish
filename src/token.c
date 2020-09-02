@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define MIN_STR_LEN 32
+
 char const * dish_tokenize(char const * str, struct TokenNode * tok)
 {
   if(!tok || !str){
@@ -15,14 +17,28 @@ char const * dish_tokenize(char const * str, struct TokenNode * tok)
   while(isspace(*str)){
     str++;
   }
+#if 0
   /* A stop plug to test the end token */
   while(*str != '\0'){
     str++;
   }
+#endif
   if(*str == '\0'){
     tok->type = TOK_END;
     return str+1;
   }
+  char * strBuff = malloc(sizeof(char) * MIN_STR_LEN);
+  size_t strLen = MIN_STR_LEN;
+  size_t strPos = 0;
+  while(!isspace(str[strPos])){
+    strPos++;
+  }
+  memcpy(strBuff, str, strPos);
+  tok->type = TOK_STRING;
+  tok->str = strBuff;
+  return str + strPos;
+
+#if 0
   /*Check for a quoted string*/
   if(*str == '\"'){
     str++;
@@ -46,5 +62,6 @@ char const * dish_tokenize(char const * str, struct TokenNode * tok)
     return str + endPos + 1u;
   }
   /* Not in quoted string */
+#endif /* if 0 */
   return str + endPos;
 }
