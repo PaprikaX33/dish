@@ -5,6 +5,8 @@
 #include <string.h>
 
 static int arg_parse(int argc, char ** argv);
+static int tokDebug = 0;
+static int dish_tok_test(void);
 
 int main(int argc, char ** argv)
 {
@@ -15,6 +17,9 @@ int main(int argc, char ** argv)
   printf("in\t: %d\nout\t: %d\nerr\t: %d\n", global.inTty, global.outTty, global.errTty);
   if((retcode = arg_parse(argc, argv))){
     return (retcode < 0 ? retcode : 0);
+  }
+  if(tokDebug){
+    return dish_tok_test();
   }
   return idsh_loop();
 }
@@ -36,7 +41,10 @@ int arg_parse(int argc, char ** argv)
         write_vers();
         return 1;
       }
-
+      if(!strcmp(argf, "-token") || !strcmp(argf, "t")){
+        tokDebug = 1;
+        continue;
+      }
       printf("idsh: unrecognized option '%s'\n", arg);
       puts("Try 'idsh --help' for more information.");
       return -1;
@@ -54,4 +62,11 @@ void write_help(void)
 void write_vers(void)
 {
   puts(versionString);
+}
+
+
+int dish_tok_test(void)
+{
+  printf("TokenTest>");
+  return 0;
 }
