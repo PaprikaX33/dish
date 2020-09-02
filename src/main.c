@@ -1,6 +1,7 @@
 #include "Dish.h"
 #include "GlobalState.h"
 #include "verString.inc"
+#include "Tokenizer.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -66,6 +67,7 @@ void write_vers(void)
 }
 
 #define MIN_BUFFSIZE 1024
+#define MIN_TOKEN 16
 
 int dish_tok_test(void)
 {
@@ -100,6 +102,46 @@ int dish_tok_test(void)
     }
   }while(1);
   char * end = buffer + pos + 1u;
-
+  char const * start = buffer;
+  struct TokenNode * tokBuff = malloc(sizeof(struct TokenNode) * MIN_TOKEN);
+  size_t tokLen = MIN_TOKEN;
+  size_t tokPos = 0;
+  while(start != end){
+    start = dish_tokenize(start, tokBuff + tokPos);
+    tokPos++;
+    if(!end){
+      fprintf(stderr, "Tokenizing error. Possibly unmatched apostroph!");
+      exit(-1);
+    }
+    if(tokPos == tokLen){
+      tokBuff = realloc(tokBuff, tokLen * 2u * sizeof(struct TokenNode));
+      if(!tokBuff){
+        fprintf(stderr, "Unable to allocate memory!");
+        exit(-1);
+      }
+      tokLen *= 2u;
+    }
+  }
+  for(struct TokenNode * tok = tokBuff; tok != NULL; tok++){
+    switch(tok->type){
+    default: break;
+    case TOK_STRING:
+      puts(tok->str);
+      break;
+    case TOK_PIPE:
+      puts("<<TOKEN>> PIPE");
+      break;
+    case TOK_RIGHT_REDIR:
+      puts("<<TOKEN>> RIGHT REDIR");
+      break;
+    case TOK_LEFT_REDIR:
+      puts("<<TOKEN>> LEFT REDIR");
+      break;
+    case TOK_END:
+      puts("<<TOKEN>> END");
+      break;
+    }
+  }
+  free(buffer);
   return 0;
 }
