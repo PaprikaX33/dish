@@ -1,4 +1,5 @@
 #include "Dish.h"
+#include "GlobalState.h"
 #include "verString.inc"
 #include <stdio.h>
 #include <string.h>
@@ -8,10 +9,13 @@ static int arg_parse(int argc, char ** argv);
 int main(int argc, char ** argv)
 {
   int retcode;
+  if(initialize_global()){
+    return -1;
+  }
+  printf("in\t: %d\nout\t: %d\nerr\t: %d\n", global.inTty, global.outTty, global.errTty);
   if((retcode = arg_parse(argc, argv))){
     return (retcode < 0 ? retcode : 0);
   }
-
   return idsh_loop();
 }
 
