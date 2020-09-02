@@ -1,5 +1,5 @@
-#ifndef IDSH_VERSION_STRING_TEXT_HEAD_H
-#define IDSH_VERSION_STRING_TEXT_HEAD_H
+#ifndef DISH_VERSION_STRING_TEXT_HEAD_H
+#define DISH_VERSION_STRING_TEXT_HEAD_H
 
 #define STRINGIFY(str) #str
 #define EXPAND_STRING(str) STRINGIFY(str)
@@ -25,4 +25,4 @@ static char const * optionString =
 /* Local Variables: */
 /* mode: c */
 /* End: */
-#endif //IDSH_VERSION_STRING_TEXT_HEAD_H
+#endif //DISH_VERSION_STRING_TEXT_HEAD_H
