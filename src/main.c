@@ -3,6 +3,7 @@
 #include "verString.inc"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 static int arg_parse(int argc, char ** argv);
 static int tokDebug = 0;
@@ -64,9 +65,41 @@ void write_vers(void)
   puts(versionString);
 }
 
+#define MIN_BUFFSIZE 1024
 
 int dish_tok_test(void)
 {
+  if(!global.inTty){
+    puts("Only in TTY");
+    return 0;
+  }
   printf("TokenTest>");
+  size_t pos = 0;
+  size_t len = MIN_BUFFSIZE;
+  char * buffer = malloc(MIN_BUFFSIZE);
+  if(!buffer){
+    fprintf(stderr, "Unable to allocate memory!");
+    exit(-1);
+  }
+  do{
+    int chr = getchar();
+    if(chr =='\n'){
+      buffer[pos] = '\0';
+      break;
+    }
+    buffer[pos] = (char)chr;
+    pos++;
+
+    if(pos == len){
+      buffer = realloc(buffer, len * 2u * sizeof(char));
+      if(!buffer){
+        fprintf(stderr, "Unable to allocate memory!");
+        exit(-1);
+      }
+      len *= 2u;
+    }
+  }while(1);
+  char * end = buffer + pos + 1u;
+
   return 0;
 }
