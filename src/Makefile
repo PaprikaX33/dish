@@ -4,7 +4,7 @@ exec_prefix	= $(prefix)
 bindir		= $(exec_prefix)/bin
 version_mj	= 0
 version_mn	= 2
-version_pt	= 2
+version_pt	= 3
 
 source_file	= main loop chDir exec global
 header_file	= Dish.h ChDir.h ExecLoc.h GlobalState.h
