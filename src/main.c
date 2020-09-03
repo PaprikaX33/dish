@@ -101,16 +101,14 @@ int dish_tok_test(void)
       len *= 2u;
     }
   }while(1);
-  char * end = buffer + pos + 1u;
   char const * start = buffer;
   struct TokenNode * tokBuff = malloc(sizeof(struct TokenNode) * MIN_TOKEN);
   size_t tokLen = MIN_TOKEN;
   size_t tokPos = 0;
-  while(start != end){
+  do{
     start = dish_tokenize(start, tokBuff + tokPos);
     tokPos++;
-    printf("AFTER TOKENIZING. st: %p\ted: %p", start, end);
-    if(!end){
+    if(!start){
       fprintf(stderr, "Tokenizing error. Possibly unmatched apostroph!");
       exit(-1);
     }
@@ -122,7 +120,7 @@ int dish_tok_test(void)
       }
       tokLen *= 2u;
     }
-  }
+  }while(tokBuff[tokPos - 1].type != TOK_END);
   for(size_t cPos = 0; cPos < tokPos; cPos++){
     struct TokenNode * tok = tokBuff + cPos;
     switch(tok->type){
