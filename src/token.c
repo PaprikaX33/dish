@@ -9,9 +9,11 @@
 #define MIN_STR_LEN 32
 
 static int is_special(int);
+static char * push_data(char * des, char const * src, size_t des_offset, size_t src_offset, size_t len);
 
 char const * dish_tokenize(char const * str, struct TokenNode * tok)
 {
+  /* String Preparation */
   if(!tok || !str){
     return NULL;
   }
@@ -20,11 +22,23 @@ char const * dish_tokenize(char const * str, struct TokenNode * tok)
   while(isspace(*str)){
     str++;
   }
-  /* //////////////////// */
-  if(*str == '\0'){
+  /* Special Char detection */
+  switch(*str){
+  case '\0':
     tok->type = TOK_END;
-    return str+1;
+    return str + 1;
+  case '|':
+    tok->type = TOK_PIPE;
+    return str + 1;
+  case '<':
+    tok->type = TOK_LEFT_REDIR;
+    return str + 1;
+  case '>':
+    tok->type = TOK_RIGHT_REDIR;
+    return str + 1;
+  default: break;
   }
+  /* //////////////////// */
   int inApos = 0;
   char * strBuff = 0;
   size_t strPos = 0;
@@ -35,6 +49,7 @@ char const * dish_tokenize(char const * str, struct TokenNode * tok)
   memcpy(strBuff, str, strPos);
   strBuff[strPos] = '\0';
   tok->type = TOK_STRING;
+  tok->str = strBuff;
 
   if(str[strPos] == '\'' || str[strPos] == '\"'){
     int delim = str[strPos];
