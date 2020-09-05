@@ -9,7 +9,7 @@
 #define MIN_STR_LEN 32
 
 static int is_special(int);
-static char * push_data(char * des, char const * src, size_t des_offset, size_t src_offset, size_t len);
+static char const * process_str(char const * str, struct TokenNode * tok);
 
 char const * dish_tokenize(char const * str, struct TokenNode * tok)
 {
@@ -17,7 +17,6 @@ char const * dish_tokenize(char const * str, struct TokenNode * tok)
   if(!tok || !str){
     return NULL;
   }
-  size_t endPos = 0;
   /*Skip Whitespace*/
   while(isspace(*str)){
     str++;
@@ -36,9 +35,40 @@ char const * dish_tokenize(char const * str, struct TokenNode * tok)
   case '>':
     tok->type = TOK_RIGHT_REDIR;
     return str + 1;
-  default: break;
+  default:
+    return process_str(str, tok);
+    /* This means it's the default string */
   }
+}
+
+int is_special(int chr)
+{
+  switch(chr){
+    /* Testing if end of char */
+  case '\0':
+    /* Whitespace */
+  case ' ':
+  case '\t':
+  case '\v':
+  case '\f':
+  case '\r':
+    /* Special Char */
+  case '|':
+  case '<':
+  case '>':
+    /* Quote */
+  case '\"':
+  case '\'':
+    return 1;
+  default:
+    return 0;
+  }
+}
+
+char const * process_str(char const * str, struct TokenNode * tok)
+{
   /* //////////////////// */
+  size_t endPos = 0;
   int inApos = 0;
   char * strBuff = 0;
   size_t strPos = 0;
@@ -77,29 +107,4 @@ char const * dish_tokenize(char const * str, struct TokenNode * tok)
   tok->str = strBuff;
   return str + strPos;
   /* //////////////////// */
-  return str + endPos;
-}
-
-int is_special(int chr)
-{
-  switch(chr){
-    /* Testing if end of char */
-  case '\0':
-    /* Whitespace */
-  case ' ':
-  case '\t':
-  case '\v':
-  case '\f':
-  case '\r':
-    /* Special Char */
-  case '|':
-  case '<':
-  case '>':
-    /* Quote */
-  case '\"':
-  case '\'':
-    return 1;
-  default:
-    return 0;
-  }
 }
