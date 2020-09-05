@@ -8,6 +8,8 @@
 
 #define MIN_STR_LEN 32
 
+static int is_special(int);
+
 char const * dish_tokenize(char const * str, struct TokenNode * tok)
 {
   if(!tok || !str){
@@ -35,13 +37,7 @@ char const * dish_tokenize(char const * str, struct TokenNode * tok)
   int repeat = 0;
   do{
     repeat = 0;
-    while(!isspace(str[strPos]) &&
-          str[strPos] != '\'' &&
-          str[strPos] != '\"' &&
-          str[strPos] != '|' &&
-          str[strPos] != '>' &&
-          str[strPos] != '<' &&
-          str[strPos] != '\0'){
+    while(!is_special(str[strPos])){
       strPos++;
     }
     strBuff = xrealloc(strBuff, (sizeof(char) * strPos) + 1u, "Unable to allocate memory!");
@@ -59,13 +55,17 @@ char const * dish_tokenize(char const * str, struct TokenNode * tok)
         /* Unbalanced apostroph */
         return NULL;
       }
+      printf("Found between %lu and %lu\n", strPos, finder);
       strBuff = xrealloc(strBuff, (sizeof(char) * (strPos + finder)) + 1u, "Unable to allocate memory!");
-      memcpy(strBuff + strPos, str + strPos, finder);
+      /* Apparently this works but seems wrong tho */
+      memcpy(strBuff + strPos, str + strPos + 1u, finder - 1u);
       strBuff[strPos + finder] = '\0';
       /* This part is infinite looping */
-      if(!isspace(str[strPos + finder + 1u]) && strBuff[strPos + finder + 1] != '\0'){
-        repeat = 1;
-      }
+      /* if(!isspace(str[strPos + finder + 1u]) && strBuff[strPos + finder + 1u] != '\0'){ */
+      /*   repeat = 1; */
+      /* } */
+      tok->str = strBuff;
+      return str + strPos + finder + 1u;
     }
   }while(repeat);
 
@@ -99,4 +99,28 @@ char const * dish_tokenize(char const * str, struct TokenNode * tok)
   /* Not in quoted string */
 #endif /* if 0 */
   return str + endPos;
+}
+
+int is_special(int chr)
+{
+  switch(chr){
+    /* Testing if end of char */
+  case '\0':
+    /* Whitespace */
+  case ' ':
+  case '\t':
+  case '\v':
+  case '\f':
+  case '\r':
+    /* Special Char */
+  case '|':
+  case '<':
+  case '>':
+    /* Quote */
+  case '\"':
+  case '\'':
+    return 1;
+  default:
+    return 0;
+  }
 }
