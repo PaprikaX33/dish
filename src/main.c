@@ -109,7 +109,7 @@ int dish_tok_test(void)
     start = dish_tokenize(start, tokBuff + tokPos);
     tokPos++;
     if(!start){
-      fprintf(stderr, "Tokenizing error. Possibly unmatched apostroph!");
+      fprintf(stderr, "Tokenizing error. Possibly unmatched apostroph!\n");
       exit(-1);
     }
     if(tokPos == tokLen){
