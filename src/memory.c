@@ -21,3 +21,22 @@ void * xrealloc(void * ptr, size_t size, char const * errMsg)
   }
   return alc;
 }
+
+void * xcmalloc(size_t size, char const * errMsg, errCallback call)
+{
+  void * alc = malloc(size);
+  if(!alc){
+    call(errMsg);
+    exit(-1);
+  }
+  return alc;
+}
+void * xcrealloc(void * ptr, size_t size, char const * errMsg, errCallback call)
+{
+  void * alc = realloc(ptr, size);
+  if(!alc){
+    call(errMsg);
+    exit(-1);
+  }
+  return alc;
+}
