@@ -2,6 +2,7 @@
 #include "GlobalState.h"
 #include "verString.inc"
 #include "Tokenizer.h"
+#include "Memory.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -78,11 +79,7 @@ int dish_tok_test(void)
   printf("TokenTest>");
   size_t pos = 0;
   size_t len = MIN_BUFFSIZE;
-  char * buffer = malloc(MIN_BUFFSIZE);
-  if(!buffer){
-    fprintf(stderr, "Unable to allocate memory!");
-    exit(-1);
-  }
+  char * buffer = xmalloc(sizeof(char) * MIN_BUFFSIZE, "Unable to allocate memory!");
   do{
     int chr = getchar();
     if(chr =='\n'){
@@ -93,16 +90,12 @@ int dish_tok_test(void)
     pos++;
 
     if(pos == len){
-      buffer = realloc(buffer, len * 2u * sizeof(char));
-      if(!buffer){
-        fprintf(stderr, "Unable to allocate memory!");
-        exit(-1);
-      }
+      buffer = xrealloc(buffer, len * 2u * sizeof(char), "Unable to allocate memory!");
       len *= 2u;
     }
   }while(1);
   char const * start = buffer;
-  struct TokenNode * tokBuff = malloc(sizeof(struct TokenNode) * MIN_TOKEN);
+  struct TokenNode * tokBuff = xmalloc(sizeof(struct TokenNode) * MIN_TOKEN, "Unable to allocate memory!");
   size_t tokLen = MIN_TOKEN;
   size_t tokPos = 0;
   do{
@@ -113,11 +106,7 @@ int dish_tok_test(void)
       exit(-1);
     }
     if(tokPos == tokLen){
-      tokBuff = realloc(tokBuff, tokLen * 2u * sizeof(struct TokenNode));
-      if(!tokBuff){
-        fprintf(stderr, "Unable to allocate memory!");
-        exit(-1);
-      }
+      tokBuff = xrealloc(tokBuff, tokLen * 2u * sizeof(struct TokenNode), "Unable to allocate memory!");
       tokLen *= 2u;
     }
   }while(tokBuff[tokPos - 1].type != TOK_END);

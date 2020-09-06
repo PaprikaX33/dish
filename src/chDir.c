@@ -1,5 +1,6 @@
 #define _POSIX_C_SOURCE 200112L
 #include "ChDir.h"
+#include "Memory.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -66,11 +67,7 @@ void execute_changedir(char ** token)
   }
   size_t len = MIN_PWD_LEN;
   int loops = 0;
-  char * buff = malloc(MIN_PWD_LEN * sizeof(char));
-  if(!buff){
-    perror(cdErrorTag);
-    return;
-  }
+  char * buff = xcmalloc(MIN_PWD_LEN * sizeof(char), cdErrorTag, perror);
   do{
     loops = 0;
     char * retbuff = getcwd(buff, len);
@@ -78,11 +75,7 @@ void execute_changedir(char ** token)
       if(errno == ERANGE){
         loops = 1;
         len *= 2;
-        buff = malloc(len* sizeof(char));
-        if(!buff){
-          perror(cdErrorTag);
-          return;
-        }
+        buff = xcmalloc(len* sizeof(char), cdErrorTag, perror);
       }
       else {
         perror(cdErrorTag);
