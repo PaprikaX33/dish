@@ -65,9 +65,17 @@ int is_special(int chr)
   }
 }
 
+static char const * string_token(char const * str, char ** curStr, size_t * curSize);
+
 char const * process_str(char const * str, struct TokenNode * tok)
 {
-  /* //////////////////// */
+  char * strBuff = NULL;
+  size_t curSize = 0;
+  char const * retStr = string_token(str, &strBuff, &curSize);
+  tok->type = TOK_STRING;
+  tok->str = strBuff;
+  return retStr;
+#if 0
   size_t endPos = 0;
   int inApos = 0;
   char * strBuff = 0;
@@ -80,7 +88,9 @@ char const * process_str(char const * str, struct TokenNode * tok)
   strBuff[strPos] = '\0';
   tok->type = TOK_STRING;
   tok->str = strBuff;
+#endif /* if 0 */
 
+#if 0
   if(str[strPos] == '\'' || str[strPos] == '\"'){
     int delim = str[strPos];
     size_t finder = 1;
@@ -96,15 +106,28 @@ char const * process_str(char const * str, struct TokenNode * tok)
     /* Apparently this works but seems wrong tho */
     memcpy(strBuff + strPos, str + strPos + 1u, finder - 1u);
     strBuff[strPos + finder] = '\0';
-    /* This part is infinite looping */
-    /* if(!isspace(str[strPos + finder + 1u]) && strBuff[strPos + finder + 1u] != '\0'){ */
-    /*   repeat = 1; */
-    /* } */
     tok->str = strBuff;
     return str + strPos + finder + 1u;
   }
-
+#endif /* if 0 */
+#if 0
   tok->str = strBuff;
   return str + strPos;
-  /* //////////////////// */
+#endif /* if 0 */
+}
+
+char const * string_token(char const * str, char ** curStr, size_t * curSize)
+{
+  size_t strPos = 0;
+  while(!is_special(str[strPos])){
+    strPos++;
+  }
+  size_t const strFinSize = strPos + *curSize;
+  char * strBuff = xrealloc(*curStr, (sizeof(char) * (strFinSize)) + 1u, "Unable to allocate memory!");
+  char * strModf = strBuff + *curSize;
+  memcpy(strModf, str, strPos);
+  strModf[strPos] = '\0';
+  *curStr = strBuff;
+  *curSize = strFinSize;
+  return str + strPos;
 }
