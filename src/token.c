@@ -102,30 +102,6 @@ char const * process_str(char const * str, struct TokenNode * tok)
   tok->type = TOK_STRING;
   tok->str = strBuff;
   return retStr;
-#if 0
-  if(str[strPos] == '\'' || str[strPos] == '\"'){
-    int delim = str[strPos];
-    size_t finder = 1;
-    while(str[strPos + finder] != delim && str[strPos + finder] != '\0'){
-      finder++;
-    }
-    if(str[strPos + finder] == '\0'){
-      /* Unbalanced apostroph */
-      return NULL;
-    }
-    printf("Found between %lu and %lu\n", strPos, finder);
-    strBuff = xrealloc(strBuff, (sizeof(char) * (strPos + finder)) + 1u, "Unable to allocate memory!");
-    /* Apparently this works but seems wrong tho */
-    memcpy(strBuff + strPos, str + strPos + 1u, finder - 1u);
-    strBuff[strPos + finder] = '\0';
-    tok->str = strBuff;
-    return str + strPos + finder + 1u;
-  }
-#endif /* if 0 */
-#if 0
-  tok->str = strBuff;
-  return str + strPos;
-#endif /* if 0 */
 }
 
 char const * string_token(char const * str, char ** curStr, size_t * curSize)
