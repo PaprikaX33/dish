@@ -121,13 +121,25 @@ int dish_tok_test(void)
       puts("<<TOKEN>> PIPE");
       break;
     case TOK_RIGHT_REDIR:
-      puts("<<TOKEN>> RIGHT REDIR");
+      puts("<<REDIR>> RIGHT");
       break;
     case TOK_LEFT_REDIR:
-      puts("<<TOKEN>> LEFT REDIR");
+      puts("<<REDIR>> LEFT");
+      break;
+    case TOK_SEPAR:
+      puts("<<SEPAR>> UNC");
+      break;
+    case TOK_SEPAR_COND_SUCC:
+      puts("<<SEPAR>> SUCC");
+      break;
+    case TOK_SEPAR_COND_FAIL:
+      puts("<<SEPAR>> FAIL");
       break;
     case TOK_END:
       puts("<<TOKEN>> END");
+      break;
+    case TOK_UNIMPLEMENTED:
+      puts("<<TOKEN>>UNIMPLEMENTED");
       break;
     }
   }
