@@ -28,7 +28,25 @@ char const * dish_tokenize(char const * str, struct TokenNode * tok)
     return str + 1;
   case '|':
     tok->type = TOK_PIPE;
-    return str + 1;
+    return str + 1u;
+  /* case '|': */
+  /*   if(*(str+1u) == '|'){ */
+  /*     tok->type = TOK_PROG_SEPAR_COND_FAIL; */
+  /*     return str + 2u; */
+  /*   } */
+  /*   else{ */
+  /*     tok->type = TOK_PIPE; */
+  /*     return str + 1u; */
+  /*   } */
+  /* case '&': */
+  /*   if(*(str+1u) == '&'){ */
+  /*     tok->type = TOK_PROG_SEPAR_COND_SUCC; */
+  /*     return str + 2u; */
+  /*   } */
+  /*   else{ */
+  /*     tok->type = TOK_UNIMPLEMENTED; */
+  /*     return str + 1u; */
+  /*   } */
   case '<':
     tok->type = TOK_LEFT_REDIR;
     return str + 1;
@@ -56,6 +74,9 @@ int is_special(int chr)
   case '|':
   case '<':
   case '>':
+    /* Prog Separ */
+  /* case ';': */
+  /* case '&': */
     /* Quote */
   case '\"':
   case '\'':
