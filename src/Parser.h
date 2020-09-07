@@ -15,14 +15,14 @@ enum TokenType{
 
 struct TokenNode{
   enum TokenType type;
-  char const * str;
+  char * str;
 };
 
 struct CommandNode {
   struct CommandNode * next;
   enum TokenType type;
   char const * command;
-  char const ** args;
+  char ** args;
 };
 
 char const * dish_tokenize(char const * str, struct TokenNode * tok);

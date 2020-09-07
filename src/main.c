@@ -10,6 +10,8 @@
 static int arg_parse(int argc, char ** argv);
 static int tokDebug = 0;
 static int dish_tok_test(void);
+static char const * token_type_str(enum TokenType);
+static void disp_command(struct CommandNode const * cmd);
 
 int main(int argc, char ** argv)
 {
@@ -110,39 +112,55 @@ int dish_tok_test(void)
       tokLen *= 2u;
     }
   }while(tokBuff[tokPos - 1].type != TOK_END);
-  for(size_t cPos = 0; cPos < tokPos; cPos++){
-    struct TokenNode * tok = tokBuff + cPos;
-    switch(tok->type){
-    default: break;
-    case TOK_STRING:
-      printf("<<STRNG>> %s\n", tok->str);
-      break;
-    case TOK_PIPE:
-      puts("<<TOKEN>> PIPE");
-      break;
-    case TOK_RIGHT_REDIR:
-      puts("<<REDIR>> RIGHT");
-      break;
-    case TOK_LEFT_REDIR:
-      puts("<<REDIR>> LEFT");
-      break;
-    case TOK_SEPAR:
-      puts("<<SEPAR>> UNC");
-      break;
-    case TOK_SEPAR_COND_SUCC:
-      puts("<<SEPAR>> SUCC");
-      break;
-    case TOK_SEPAR_COND_FAIL:
-      puts("<<SEPAR>> FAIL");
-      break;
-    case TOK_END:
-      puts("<<TOKEN>> END");
-      break;
-    case TOK_UNIMPLEMENTED:
-      puts("<<TOKEN>>UNIMPLEMENTED");
-      break;
+
+  struct CommandNode cmd = dish_parse(tokBuff);
+  disp_command(&cmd);
+  for(struct TokenNode * tok = tokBuff; tok->type != TOK_END; tok++){
+    if(tok->type == TOK_STRING){
+      free(tok->str);
     }
   }
   free(buffer);
+  free(tokBuff);
   return 0;
+}
+
+void disp_command(struct CommandNode const * cmd)
+{
+  printf("Command:\t%s\n", cmd->command);
+  printf("Next:\t\t%s\n", token_type_str(cmd->type));
+  puts("Args:");
+  for(char ** arg = cmd->args; *arg; arg++){
+    putc('\t', stdout);
+    puts(*arg);
+  }
+  if(cmd->next){
+    puts("Reading next command;;");
+    disp_command(cmd->next);
+  }
+}
+
+char const * token_type_str(enum TokenType tok)
+{
+    switch(tok){
+    default: return "";
+    case TOK_STRING:
+      return "<<STRNG>>";
+    case TOK_PIPE:
+      return "<<TOKEN>> PIPE";
+    case TOK_RIGHT_REDIR:
+      return "<<REDIR>> RIGHT";
+    case TOK_LEFT_REDIR:
+      return "<<REDIR>> LEFT";
+    case TOK_SEPAR:
+      return "<<SEPAR>> UNC";
+    case TOK_SEPAR_COND_SUCC:
+      return "<<SEPAR>> SUCC";
+    case TOK_SEPAR_COND_FAIL:
+      return "<<SEPAR>> FAIL";
+    case TOK_END:
+      return "<<TOKEN>> END";
+    case TOK_UNIMPLEMENTED:
+      return "<<TOKEN>>UNIMPLEMENTED";
+    }
 }

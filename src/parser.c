@@ -181,5 +181,7 @@ struct CommandNode dish_parse(struct TokenNode const * token)
     cur.args[i] = cTok[i].str;
   }
   cur.args[numOfArgs] = NULL;
+  cur.next = NULL;
+  cur.type = cTok[numOfArgs].type;
   return cur;
 }
