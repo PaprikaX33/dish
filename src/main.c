@@ -113,7 +113,12 @@ int dish_tok_test(void)
     }
   }while(tokBuff[tokPos - 1].type != TOK_END);
 
-  struct CommandNode cmd = dish_parse(tokBuff);
+  struct CommandNode cmd;
+  int retc = dish_parse(&cmd, tokBuff);
+  if(retc){
+    fputs("terminating\n", stderr);
+    return retc;
+  }
   puts("TOKENIZE::");
     for(size_t cPos = 0; cPos < tokPos; cPos++){
     struct TokenNode * tok = tokBuff + cPos;
