@@ -1,5 +1,5 @@
-#ifndef DISH_TOKENIZER_HEAD_H
-#define DISH_TOKENIZER_HEAD_H
+#ifndef DISH_PARSER_HEAD_H
+#define DISH_PARSER_HEAD_H
 
 enum TokenType{
   TOK_STRING,
@@ -18,4 +18,4 @@ char const * dish_tokenize(char const * str, struct TokenNode * tok);
 /* Returns the last char of the string + 1 */
 /* Returns null pointer on failure */
 
-#endif //DISH_TOKENIZER_HEAD_H
+#endif //DISH_PARSER_HEAD_H

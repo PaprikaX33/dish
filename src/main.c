@@ -1,7 +1,7 @@
 #include "Dish.h"
 #include "GlobalState.h"
 #include "verString.inc"
-#include "Tokenizer.h"
+#include "Parser.h"
 #include "Memory.h"
 #include <stdio.h>
 #include <string.h>

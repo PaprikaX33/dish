@@ -6,8 +6,8 @@ version_mj	= 0
 version_mn	= 2
 version_pt	= 3
 
-source_file	= main loop chDir exec global token memory
-header_file	= Dish.h ChDir.h ExecLoc.h GlobalState.h Tokenizer.h Memory.h
+source_file	= main loop chDir exec global parser memory
+header_file	= Dish.h ChDir.h ExecLoc.h GlobalState.h Parser.h Memory.h
 includ_file	= verString.inc
 csrc_file	= $(source_file:%=%.o)
 object_file	= $(csrc_file:.c=.o)
