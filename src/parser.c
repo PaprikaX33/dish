@@ -162,33 +162,32 @@ void dish_clean_command_node(struct CommandNode * node)
   free(node);
 }
 
-struct CommandNode dish_parse(struct TokenNode const * token)
+int dish_parse(struct CommandNode * dest, struct TokenNode const * token)
 {
   if(token->type != TOK_STRING){
     /* THIS PART NEED TO ABORT PARSING AND EXIT BACK TO THE LOOP */
     fprintf(stderr, "dish: unexpected token `%s'\n", type_to_str(token->type));
-    exit(-1);
+    return -1;
   }
-  struct CommandNode cur;
-  cur.command = token->str;
+  dest->command = token->str;
   struct TokenNode const * cTok = token + 1u;
   size_t numOfArgs = 0;
   while(cTok->type == TOK_STRING){
     cTok++;
     numOfArgs++;
   }
-  cur.args = xmalloc((numOfArgs + 1u) * sizeof(char*), "Unable to allocate memory!");
+  dest->args = xmalloc((numOfArgs + 1u) * sizeof(char*), "Unable to allocate memory!");
   cTok = token + 1u;
   for(size_t i = 0; i < numOfArgs; i++){
-    cur.args[i] = cTok[i].str;
+    dest->args[i] = cTok[i].str;
   }
-  cur.args[numOfArgs] = NULL;
-  cur.next = NULL;
-  cur.type = cTok[numOfArgs].type;
-  if(cur.type != TOK_END){
+  dest->args[numOfArgs] = NULL;
+  dest->next = NULL;
+  dest->type = cTok[numOfArgs].type;
+  if(dest->type != TOK_END){
     struct TokenNode const * latestTok = cTok + numOfArgs + 1u;
-    cur.next = xmalloc(sizeof(struct CommandNode *),"Unable to allocate memory!");
-    *cur.next = dish_parse(latestTok);
+    dest->next = xmalloc(sizeof(struct CommandNode *),"Unable to allocate memory!");
+    return dish_parse(dest->next, latestTok);
   }
-  return cur;
+  return 0;
 }

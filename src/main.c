@@ -79,6 +79,8 @@ int dish_tok_test(void)
     return 0;
   }
   printf("TokenTest>");
+  /* Should the array of token be a linked list just like the command tho? */
+  /* That way it consumes far less memory */
   size_t pos = 0;
   size_t len = MIN_BUFFSIZE;
   char * buffer = xmalloc(sizeof(char) * MIN_BUFFSIZE, "Unable to allocate memory!");
@@ -113,7 +115,12 @@ int dish_tok_test(void)
     }
   }while(tokBuff[tokPos - 1].type != TOK_END);
 
-  struct CommandNode cmd = dish_parse(tokBuff);
+  struct CommandNode cmd;
+  int retc = dish_parse(&cmd, tokBuff);
+  if(retc){
+    fputs("terminating\n", stderr);
+    return retc;
+  }
   puts("TOKENIZE::");
     for(size_t cPos = 0; cPos < tokPos; cPos++){
     struct TokenNode * tok = tokBuff + cPos;
