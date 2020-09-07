@@ -165,7 +165,9 @@ void dish_clean_command_node(struct CommandNode * node)
 struct CommandNode dish_parse(struct TokenNode const * token)
 {
   if(token->type != TOK_STRING){
-    fprintf(stderr, "dish: unexpected token `%s'", type_to_str(token->type));
+    /* THIS PART NEED TO ABORT PARSING AND EXIT BACK TO THE LOOP */
+    fprintf(stderr, "dish: unexpected token `%s'\n", type_to_str(token->type));
+    exit(-1);
   }
   struct CommandNode cur;
   cur.command = token->str;

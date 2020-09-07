@@ -114,6 +114,40 @@ int dish_tok_test(void)
   }while(tokBuff[tokPos - 1].type != TOK_END);
 
   struct CommandNode cmd = dish_parse(tokBuff);
+  puts("TOKENIZE::");
+    for(size_t cPos = 0; cPos < tokPos; cPos++){
+    struct TokenNode * tok = tokBuff + cPos;
+    switch(tok->type){
+    default: break;
+    case TOK_STRING:
+      printf("<<STRNG>> %s\n", tok->str);
+      break;
+    case TOK_PIPE:
+      puts("<<TOKEN>> PIPE");
+      break;
+    case TOK_RIGHT_REDIR:
+      puts("<<REDIR>> RIGHT");
+      break;
+    case TOK_LEFT_REDIR:
+      puts("<<REDIR>> LEFT");
+      break;
+    case TOK_SEPAR:
+      puts("<<SEPAR>> UNC");
+      break;
+    case TOK_SEPAR_COND_SUCC:
+      puts("<<SEPAR>> SUCC");
+      break;
+    case TOK_SEPAR_COND_FAIL:
+      puts("<<SEPAR>> FAIL");
+      break;
+    case TOK_END:
+      puts("<<TOKEN>> END");
+      break;
+    case TOK_UNIMPLEMENTED:
+      puts("<<TOKEN>>UNIMPLEMENTED");
+      break;
+    }
+  }
   disp_command(&cmd);
   for(struct TokenNode * tok = tokBuff; tok->type != TOK_END; tok++){
     if(tok->type == TOK_STRING){
