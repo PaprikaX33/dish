@@ -79,6 +79,8 @@ int dish_tok_test(void)
     return 0;
   }
   printf("TokenTest>");
+  /* Should the array of token be a linked list just like the command tho? */
+  /* That way it consumes far less memory */
   size_t pos = 0;
   size_t len = MIN_BUFFSIZE;
   char * buffer = xmalloc(sizeof(char) * MIN_BUFFSIZE, "Unable to allocate memory!");
