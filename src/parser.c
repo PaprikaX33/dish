@@ -175,7 +175,7 @@ struct CommandNode dish_parse(struct TokenNode const * token)
     cTok++;
     numOfArgs++;
   }
-  cur.args = xmalloc((numOfArgs + 1u) * sizeof(char*),"Unable to allocate memory!");
+  cur.args = xmalloc((numOfArgs + 1u) * sizeof(char*), "Unable to allocate memory!");
   cTok = token + 1u;
   for(size_t i = 0; i < numOfArgs; i++){
     cur.args[i] = cTok[i].str;
@@ -183,5 +183,10 @@ struct CommandNode dish_parse(struct TokenNode const * token)
   cur.args[numOfArgs] = NULL;
   cur.next = NULL;
   cur.type = cTok[numOfArgs].type;
+  if(cur.type != TOK_END){
+    struct TokenNode const * latestTok = cTok + numOfArgs + 1u;
+    cur.next = xmalloc(sizeof(struct CommandNode *),"Unable to allocate memory!");
+    *cur.next = dish_parse(latestTok);
+  }
   return cur;
 }
