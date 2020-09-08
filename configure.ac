@@ -5,12 +5,14 @@
 AC_PREREQ([2.69])
 AC_INIT([dish], [0.2.2], [paprika.trisalted.pepper@protonmail.com])
 AC_CONFIG_SRCDIR([src/main.c])
-#AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_MACRO_DIRS([m4])
 
 AM_INIT_AUTOMAKE([1.9 foreign])
 
 # Checks for programs.
 AC_PROG_CC
+AC_PROG_INSTALL
 
 # Checks for libraries.
 
@@ -25,10 +27,8 @@ AC_TYPE_SIZE_T
 AC_TYPE_SSIZE_T
 
 # Checks for library functions.
-AC_FUNC_FORK
-AC_FUNC_MALLOC
-AC_FUNC_REALLOC
 AC_CHECK_FUNCS([getcwd setenv])
 
-#AC_OUTPUT
-AC_OUTPUT(Makefile src/Makefile)
+AC_CONFIG_FILES([Makefile
+                 src/Makefile])
+AC_OUTPUT
