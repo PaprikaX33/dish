@@ -1,6 +1,7 @@
 #include "Dish.h"
 #include "ChDir.h"
 #include "ExecLoc.h"
+#include "Memory.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -29,22 +30,13 @@ int idsh_loop(void)
     return -1;
   }
   struct TokenPair token = {
-                            .tok = malloc(sizeof(char *) * MIN_TOKEN),
+    .tok = xmalloc(sizeof(char *) * MIN_TOKEN, "Unable to allocate memory!"),
                             .len = MIN_TOKEN
   };
-  if(!token.tok){
-    fprintf(stderr, "Unable to allocate memory!");
-    return -1;
-  }
   struct StringPair string = {
-                              .str = malloc(sizeof(char) * MIN_BUFFSIZE),
+    .str = xmalloc(sizeof(char) * MIN_BUFFSIZE, "Unable to allocate memory!"),
                               .len = MIN_BUFFSIZE
   };
-  if(!string.str){
-    fprintf(stderr, "Unable to allocate memory!");
-    free(token.tok);
-    return -1;
-  }
   int loop;
   do{
     printf("%02d-IdSH> ", exitStats);
@@ -73,10 +65,7 @@ struct StringPair idsh_getline(struct StringPair str)
     pos++;
 
     if(pos == str.len){
-      if(!(str.str = realloc(str.str, str.len * 2 * sizeof(char)))){
-        fprintf(stderr, "Unable to allocate memory!");
-        exit(-1);
-      }
+      str.str = xrealloc(str.str, str.len * 2 * sizeof(char), "Unable to allocate memory!");
       str.len *= 2;
     }
   }while(1);
@@ -102,10 +91,7 @@ struct TokenPair idsh_tokenize(struct TokenPair tok, struct StringPair strng)
     pos++;
     //reallocate if required
     if(pos == tok.len){
-      if(!(tok.tok = realloc(tok.tok, tok.len * 2 * sizeof(char*)))){
-        fprintf(stderr, "Unable to allocate memory!");
-        exit(-1);
-      }
+      tok.tok = xrealloc(tok.tok, tok.len * 2 * sizeof(char*), "Unable to allocate memory!");
       tok.len *= 2;
     }
     //Find next whitespace
