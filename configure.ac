@@ -6,7 +6,6 @@ AC_PREREQ([2.69])
 AC_INIT([dish], [0.2.2], [paprika.trisalted.pepper@protonmail.com])
 AC_CONFIG_SRCDIR([src/main.c])
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_MACRO_DIRS([m4])
 
 AM_INIT_AUTOMAKE([1.9 foreign])
 
