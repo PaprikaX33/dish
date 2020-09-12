@@ -11,7 +11,10 @@ AM_INIT_AUTOMAKE([1.9 foreign])
 
 # Checks for programs.
 AC_PROG_CC
+AC_PROG_CXX
 AC_PROG_INSTALL
+
+AX_CXX_COMPILE_STDCXX_17
 
 # Checks for libraries.
 
@@ -29,5 +32,6 @@ AC_TYPE_SSIZE_T
 AC_CHECK_FUNCS([getcwd setenv])
 
 AC_CONFIG_FILES([Makefile
-                 src/Makefile])
+                 src/Makefile
+                 rec/Makefile])
 AC_OUTPUT
