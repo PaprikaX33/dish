@@ -15,8 +15,6 @@ AC_PROG_CC
 AC_PROG_CXX
 AC_PROG_INSTALL
 
-AX_CXX_COMPILE_STDCXX_17
-
 # Checks for libraries.
 
 # Checks for header files.
@@ -24,6 +22,9 @@ AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
 AC_CHECK_HEADERS([stddef.h stdlib.h string.h unistd.h])
 
+# Checks for CXX feature
+AC_CHECK_HEADER_STDBOOL
+AX_CXX_COMPILE_STDCXX_17
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_PID_T
 AC_TYPE_SIZE_T

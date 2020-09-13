@@ -1,2 +1,2 @@
 bin_PROGRAMS = ppdish
-ppdish_SOURCES = main.cpp programState.cpp getLine.cpp
+ppdish_SOURCES = getLine.cpp GetLine.hpp Glue.h main.cpp Makefile.am Makefile.in programState.cpp ProgState.hpp
