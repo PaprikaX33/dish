@@ -1,2 +1,2 @@
 bin_PROGRAMS = ppdish
-ppdish_SOURCES = main.cpp programState.cpp
+ppdish_SOURCES = main.cpp programState.cpp getLine.cpp
