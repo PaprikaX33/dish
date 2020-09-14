@@ -26,9 +26,10 @@ namespace Di {
   };
 
   struct TokenStrPair{
-    enum TokenType type;
-    std::string str;
+    enum TokenType _type;
+    std::string _str;
     TokenStrPair(void) noexcept;
+    TokenStrPair(enum TokenType type) noexcept;
   };
 
   std::vector<TokenStrPair> scan_string(char const *);
