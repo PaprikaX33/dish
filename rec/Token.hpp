@@ -6,8 +6,9 @@
 namespace Di {
   namespace Exc {
   // TODO: make a proper exception base for a "catchall"
-    struct ParseError{
-      std::string strErr;
+    struct TokenException{
+      virtual char const * err_txt() const noexcept = 0;
+      virtual ~TokenException(){}
     };
   }
   enum class TokenType{
@@ -26,7 +27,7 @@ namespace Di {
 
   struct TokenStrPair{
     enum TokenType type;
-    char const * str;
+    std::string str;
     TokenStrPair(void) noexcept;
   };
 
