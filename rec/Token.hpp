@@ -2,6 +2,7 @@
 #define DISH_TOKEN_HEAD_HPP
 #include <vector>
 #include <string>
+#include <optional>
 
 namespace Di {
   namespace Exc {
@@ -27,7 +28,7 @@ namespace Di {
 
   struct TokenStrPair{
     enum TokenType _type;
-    std::string _str;
+    std::optional<std::string> _str;
     TokenStrPair(void) noexcept;
     TokenStrPair(enum TokenType type) noexcept;
   };
