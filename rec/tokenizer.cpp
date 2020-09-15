@@ -1,5 +1,6 @@
 #include "Token.hpp"
 #include <tuple>
+#include <iostream>
 
 namespace Di{
   namespace Exc{
@@ -107,30 +108,38 @@ Pairret process_string(char const * str)
   Di::TokenStrPair strPair{Di::TokenType::TOK_STRING};
   std::string stringBuff;
   char quote = 0;
-  // Quote is still broken
-  if(quote){
-    while(*str != quote){
-      if(!*str){
-        throw Di::Exc::UnbalanceQuoteErr{};
+  bool repeat = false;
+  // This Repeat hack is so ugly
+  do{
+    repeat = false;
+    if(quote){
+      while(*str != quote){
+        if(!*str){
+          throw Di::Exc::UnbalanceQuoteErr{};
+        }
+        stringBuff.push_back(*str);
+        str++;
       }
-      stringBuff.push_back(*str);
       str++;
+      quote = 0;
+      repeat = true;
     }
-    quote = 0;
-  }
-  else{
-    while(!is_special(*str)){
-      stringBuff.push_back(*str);
-      str++;
+    else{
+      while(!is_special(*str)){
+        stringBuff.push_back(*str);
+        str++;
+      }
+      switch(*str){
+      case '\'':
+      case '\"':
+        quote = *str;
+        str++;
+        repeat = true;
+      default:
+        break;
+      }
     }
-    switch(*str){
-    case '\'':
-    case '\"':
-      quote = *str;
-    default:
-      break;
-    }
-  }
+  }while(repeat);
   strPair._str = stringBuff;
   return std::make_pair(str, strPair);
 }
@@ -142,7 +151,6 @@ Pairret process_var(char const * str)
   while(std::isalnum(str[len])){
     len++;
   }
-  // Check for 0 len, or an $ at the end of the string
   if(len){
     strPair._str = std::string{str, len};
   }

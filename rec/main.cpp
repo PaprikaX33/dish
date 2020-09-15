@@ -14,10 +14,8 @@ int main(int argc, char ** argv)
             << "outTTY:\t" << BOOLSTR(Di::global.outTty) << '\n'
             << "errTTY:\t" << BOOLSTR(Di::global.errTty) << '\n';
   auto str = Di::getStr();
-  std::cout << str << '\n';
   try{
     auto tok = Di::scan_string(str.c_str());
-    std::cout << "parsed scanString\n";
     for(auto const & i:tok){
       std::cout << token_type_str(i._type) << '\t' << i._str.value_or("<<NULL>>") << '\n';
     }
