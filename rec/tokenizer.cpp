@@ -6,10 +6,17 @@ namespace Di{
     struct LogicalError : Di::Exc::TokenException{
       char const * _text;
       LogicalError(char const * txt) : _text{txt}{}
-      virtual char const * err_txt() const noexcept{
+      virtual char const * err_txt(void) const noexcept{
         return _text;
       }
-      ~LogicalError(){}
+      ~LogicalError(void){}
+    };
+    struct UnbalanceQuoteErr : Di::Exc::TokenException{
+      UnbalanceQuoteErr(void){}
+      virtual char const * err_txt(void) const noexcept{
+        return "Unbalanced Quotation";
+      }
+      ~UnbalanceQuoteErr(void){}
     };
   }
 }
@@ -97,14 +104,35 @@ Pairret parse_block(char const * string)
 
 Pairret process_string(char const * str)
 {
-  // TODO: Check for the quotation string
   Di::TokenStrPair strPair{Di::TokenType::TOK_STRING};
-  std::size_t len = 0;
-  do{
-    len++;
-  }while(!is_special(str[len]));
-  strPair._str = std::string{str, len};
-  return std::make_pair(str + len, strPair);
+  std::string stringBuff;
+  char quote = 0;
+  // Quote is still broken
+  if(quote){
+    while(*str != quote){
+      if(!*str){
+        throw Di::Exc::UnbalanceQuoteErr{};
+      }
+      stringBuff.push_back(*str);
+      str++;
+    }
+    quote = 0;
+  }
+  else{
+    while(!is_special(*str)){
+      stringBuff.push_back(*str);
+      str++;
+    }
+    switch(*str){
+    case '\'':
+    case '\"':
+      quote = *str;
+    default:
+      break;
+    }
+  }
+  strPair._str = stringBuff;
+  return std::make_pair(str, strPair);
 }
 
 Pairret process_var(char const * str)
@@ -128,24 +156,26 @@ Pairret process_var(char const * str)
 bool is_special(int chr)
 {
   switch(chr){
-    /* Testing if end of char */
+    // Testing if end of char
   case '\0':
-    /* Whitespace */
+    // Whitespace
   case ' ':
   case '\t':
   case '\v':
   case '\f':
   case '\r':
-    /* Special Char */
+    // Special Char
   case '|':
   case '<':
   case '>':
-    /* Prog Separ */
+    // Prog Separ
   case ';':
   case '&':
-    /* Quote */
+    // Quote
   case '\"':
   case '\'':
+    // Variable
+  case '$':
     return true;
   default:
     return false;
