@@ -17,11 +17,11 @@ int main(int argc, char ** argv)
   try{
     auto tok = Di::scan_string(str.c_str());
     for(auto const & i:tok){
-      std::cout << token_type_str(i._type) << '\t' << i._str.value_or("<<NULL>>") << '\n';
+      std::cout << token_type_str(i._type) << '\t' << i._str.value_or("<->") << '\n';
     }
   }
   catch(Di::Exc::TokenException const & exc){
-    std::cout << exc.err_txt();
+    std::cerr << "Tokenizing Error: " << exc.err_txt() << '\n';
   }
 
   return 0;

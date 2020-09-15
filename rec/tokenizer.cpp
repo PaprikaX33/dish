@@ -147,6 +147,14 @@ Pairret process_string(char const * str)
 Pairret process_var(char const * str)
 {
   Di::TokenStrPair strPair{Di::TokenType::TOK_VAR};
+  switch(*str){
+  case '\'':
+  case '\"':
+    strPair._str = std::string{""};
+    return std::make_pair(str, strPair);
+  default:
+    break;
+  }
   std::size_t len = 0;
   while(std::isalnum(str[len])){
     len++;
