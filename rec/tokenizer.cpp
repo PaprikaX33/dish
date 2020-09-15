@@ -88,12 +88,11 @@ Pairret parse_block(char const * string)
   case '>':
     return std::make_pair(str + 1u, Di::TokenType::TOK_RIGHT_REDIR);
   case '$':
-    return process_var(str);
+    return process_var(str + 1u);
   default:
     // Default string
     return process_string(str);
   }
-  (void)is_special(string[0]);
 }
 
 Pairret process_string(char const * str)
@@ -115,7 +114,14 @@ Pairret process_var(char const * str)
   while(std::isalnum(str[len])){
     len++;
   }
-  strPair._str = std::string{str, len};
+  // Check for 0 len, or an $ at the end of the string
+  if(len){
+    strPair._str = std::string{str, len};
+  }
+  else{
+    strPair._str = std::string{"$"};
+    strPair._type = Di::TokenType::TOK_STRING;
+  }
   return std::make_pair(str + len, strPair);
 }
 
