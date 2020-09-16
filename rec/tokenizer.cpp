@@ -39,7 +39,7 @@ Di::TokenStrPair::TokenStrPair(enum Di::TokenType type) noexcept :
   _str()
 {}
 
-std::vector<Di::TokenStrPair> Di::scan_string(char const * string)
+Di::TokenArr Di::scan_string(char const * string)
 {
   // String Preparation
   if(!string){
@@ -180,6 +180,8 @@ bool is_special(int chr)
   case '\v':
   case '\f':
   case '\r':
+    // Newline is possible in piped stdin
+  case '\n':
     // Special Char
   case '|':
   case '<':

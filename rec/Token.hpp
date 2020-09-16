@@ -33,7 +33,8 @@ namespace Di {
     TokenStrPair(enum TokenType type) noexcept;
   };
 
-  std::vector<TokenStrPair> scan_string(char const *);
+  using TokenArr = std::vector<TokenStrPair>;
+  TokenArr scan_string(char const *);
 }
 
 #endif //DISH_TOKEN_HEAD_HPP
