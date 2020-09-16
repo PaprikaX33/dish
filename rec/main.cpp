@@ -13,17 +13,25 @@ int main(int argc, char ** argv)
   std::cout << "inTTY:\t" << BOOLSTR(Di::global.inTty) << '\n'
             << "outTTY:\t" << BOOLSTR(Di::global.outTty) << '\n'
             << "errTTY:\t" << BOOLSTR(Di::global.errTty) << '\n';
-  auto str = Di::getStr();
   try{
+    auto str = Di::getStr();
     auto tok = Di::scan_string(str.c_str());
     for(auto const & i:tok){
       std::cout << token_type_str(i._type) << '\t' << i._str.value_or("<->") << '\n';
     }
   }
+  catch(Di::Exc::GetStringException const & exc){
+    if(exc.soft_exit()){
+      return 0;
+    }
+    else{
+      std::cerr << "Get String Error: " << exc.err_txt() << '\n';
+      return -1;
+    }
+  }
   catch(Di::Exc::TokenException const & exc){
     std::cerr << "Tokenizing Error: " << exc.err_txt() << '\n';
   }
-
   return 0;
 }
 

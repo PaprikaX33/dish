@@ -3,6 +3,13 @@
 #include <string>
 
 namespace Di {
+  namespace Exc {
+    struct GetStringException{
+      virtual bool soft_exit(void) const noexcept = 0;
+      virtual char const * err_txt(void) const noexcept = 0;
+      virtual ~GetStringException(){}
+    };
+  }
   std::string getStr(void);
 }
 
