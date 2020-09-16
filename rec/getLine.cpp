@@ -7,7 +7,7 @@ std::string Di::getStr(void)
   std::string buff{};
   if(!Di::global.inTty){
     std::fputs("Only in TTY\n", stderr);
-    return 0;
+    return std::string{};
   }
   printf("TokenTest>");
   do{
