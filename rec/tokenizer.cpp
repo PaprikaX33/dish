@@ -2,19 +2,19 @@
 #include <tuple>
 #include <iostream>
 
-namespace Di{
-  namespace Exc{
-    struct LogicalError : Di::Exc::TokenException{
+namespace Di {
+  namespace Exc {
+    struct LogicalError : public Di::Exc::TokenException{
       char const * _text;
       LogicalError(char const * txt) : _text{txt}{}
-      virtual char const * err_txt(void) const noexcept{
+      virtual char const * err_txt(void) const noexcept override {
         return _text;
       }
       ~LogicalError(void){}
     };
-    struct UnbalanceQuoteErr : Di::Exc::TokenException{
+    struct UnbalanceQuoteErr : public Di::Exc::TokenException{
       UnbalanceQuoteErr(void){}
-      virtual char const * err_txt(void) const noexcept{
+      virtual char const * err_txt(void) const noexcept override {
         return "Unbalanced Quotation";
       }
       ~UnbalanceQuoteErr(void){}
@@ -47,6 +47,7 @@ Di::TokenArr Di::scan_string(char const * string)
   }
   auto str = string;
   // Skip Initial Whitespace
+  // INFO: Probably should allow a TOK_SEPAR on the front of the string
   while(std::isspace(*str)){
     str++;
   }
