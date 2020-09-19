@@ -1,5 +1,6 @@
 #include "ProgState.hpp"
 #include "GetLine.hpp"
+#include "CmdSepar.hpp"
 #include "Token.hpp"
 #include <iostream>
 
@@ -19,6 +20,7 @@ int main(int argc, char ** argv)
     for(auto const & i:tok){
       std::cout << token_type_str(i._type) << '\t' << i._str.value_or("<->") << '\n';
     }
+    auto cmd = Di::parse_token(tok);
   }
   catch(Di::Exc::GetStringException const & exc){
     if(exc.soft_exit()){
@@ -28,6 +30,9 @@ int main(int argc, char ** argv)
       std::cerr << "Get String Error: " << exc.err_txt() << '\n';
       return -1;
     }
+  }
+  catch(Di::Exc::ParsingException const & exc){
+    std::cerr << "Parsing Error: " << exc.err_txt() << '\n';
   }
   catch(Di::Exc::TokenException const & exc){
     std::cerr << "Tokenizing Error: " << exc.err_txt() << '\n';
