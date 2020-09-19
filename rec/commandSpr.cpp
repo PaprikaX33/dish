@@ -8,6 +8,36 @@ namespace Di {
       }
       ~UnimplementedToken(){}
     };
+    struct SyntaxError : public Di::Exc::ParsingException{
+      std::string _errStr;
+      virtual char const * err_txt() const noexcept override {
+        return _errStr.c_str();
+      }
+      ~SyntaxError(){}
+      SyntaxError(Di::TokenType const tok):
+        _errStr{"Syntax error near unexpected token: "}
+      {
+        _errStr += this->tok_to_str(tok);
+      }
+      char const * tok_to_str(Di::TokenType const tok) {
+        switch(tok){
+        default:
+          return "";
+        case Di::TokenType::TOK_PIPE:
+          return "|";
+        case Di::TokenType::TOK_RIGHT_REDIR:
+          return ">";
+        case Di::TokenType::TOK_LEFT_REDIR:
+          return "<";
+        case Di::TokenType::TOK_PRG_SEPAR:
+          return ";";
+        case Di::TokenType::TOK_PRG_SEPAR_COND_SUCC:
+          return "&&";
+        case Di::TokenType::TOK_PRG_SEPAR_COND_FAIL:
+          return "||";
+        }
+      }
+    };
   }
 }
 
@@ -30,6 +60,7 @@ Di::CommandArr Di::parse_token(Di::TokenArr const & tok)
     if(curTok->_type == Di::TokenType::TOK_UNIMPLEMENTED){
       throw Di::Exc::UnimplementedToken{};
     }
+    // First string should be the command
   }while(!stopParse || curTok != endTok);
   return arr;
 }
