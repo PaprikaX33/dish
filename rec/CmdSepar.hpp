@@ -1,5 +1,6 @@
 #ifndef DISH_COMMAND_SEPARATOR_HEAD_HPP
 #define DISH_COMMAND_SEPARATOR_HEAD_HPP
+#include "Token.hpp"
 #include <string>
 #include <vector>
 #include <optional>
@@ -21,7 +22,10 @@ namespace Di {
     } _inter;
     std::string _cmd;
     std::vector<std::string> _args;
-  }
+  };
+
+  using CommandArr = std::vector<CommandBlock>;
+  CommandArr parse_token(Di::TokenArr const & tok);
 }
 
 #endif //DISH_COMMAND_SEPARATOR_HEAD_HPP
