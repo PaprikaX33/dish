@@ -16,12 +16,12 @@ namespace Di {
   struct CommandBlock {
     struct Interface {
       //TODO: FiLL
-      std::optional<std::string> _stdin;
-      std::optional<std::string> _stdout;
-      std::optional<std::string> _stderr;
+      std::optional<Di::TokenStrPair> _stdin;
+      std::optional<Di::TokenStrPair> _stdout;
+      std::optional<Di::TokenStrPair> _stderr;
     } _inter;
-    std::string _cmd;
-    std::vector<std::string> _args;
+    Di::TokenStrPair _cmd;
+    std::vector<Di::TokenStrPair> _args;
   };
 
   using CommandArr = std::vector<CommandBlock>;
