@@ -41,6 +41,7 @@ namespace Di {
   }
 }
 
+static void check_token(Di::TokenArr::value_type const & i);
 Di::CommandArr Di::parse_token(Di::TokenArr const & tok)
 {
   auto curTok = tok.begin();
@@ -57,9 +58,7 @@ Di::CommandArr Di::parse_token(Di::TokenArr const & tok)
       stopParse = true;
       break;
     }
-    if(curTok->_type == Di::TokenType::TOK_UNIMPLEMENTED){
-      throw Di::Exc::UnimplementedToken{};
-    }
+    check_token(*curTok);
     // First string should be the command
     if(curTok->_type != Di::TokenType::TOK_STRING &&
        curTok->_type != Di::TokenType::TOK_VAR){
@@ -68,7 +67,15 @@ Di::CommandArr Di::parse_token(Di::TokenArr const & tok)
     while(curTok->_type == Di::TokenType::TOK_STRING ||
           curTok->_type == Di::TokenType::TOK_VAR){
       block._cmd.push_back(*curTok);
+      curTok++;
     }
   }while(!stopParse || curTok != endTok);
   return arr;
+}
+
+void check_token(Di::TokenArr::value_type const & i)
+{
+  if(i._type == Di::TokenType::TOK_UNIMPLEMENTED){
+    throw Di::Exc::UnimplementedToken{};
+  }
 }
