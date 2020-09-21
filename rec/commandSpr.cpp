@@ -65,7 +65,10 @@ Di::CommandArr Di::parse_token(Di::TokenArr const & tok)
        curTok->_type != Di::TokenType::TOK_VAR){
       throw Di::Exc::SyntaxError{curTok->_type};
     }
-    block._cmd = *curTok;
+    while(curTok->_type == Di::TokenType::TOK_STRING ||
+          curTok->_type == Di::TokenType::TOK_VAR){
+      block._cmd.push_back(*curTok);
+    }
   }while(!stopParse || curTok != endTok);
   return arr;
 }

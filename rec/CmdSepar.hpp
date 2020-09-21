@@ -20,7 +20,7 @@ namespace Di {
       std::optional<Di::TokenStrPair> _stdout;
       std::optional<Di::TokenStrPair> _stderr;
     } _inter;
-    Di::TokenStrPair _cmd;
+    std::vector<Di::TokenStrPair> _cmd;
     std::vector<Di::TokenStrPair> _args;
   };
 
