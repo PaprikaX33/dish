@@ -1,4 +1,5 @@
 #include "CmdSepar.hpp"
+#include <utility>
 
 namespace Di {
   namespace Exc {
@@ -50,7 +51,8 @@ namespace Di {
 }
 
 static void check_token(Di::TokenArr::value_type const & i);
-static void should_valid(Di::TokenArr::value_type const & i);
+static void valid_cmd(Di::TokenArr::value_type const & i);
+static bool valid_arg(Di::TokenArr::value_type const & i);
 
 Di::CommandArr Di::parse_token(Di::TokenArr const & tok)
 {
@@ -70,12 +72,22 @@ Di::CommandArr Di::parse_token(Di::TokenArr const & tok)
     }
     check_token(*curTok);
     // First string should be the command
-    should_valid(*curTok);
+    valid_cmd(*curTok);
     while(curTok->_type == Di::TokenType::TOK_STRING ||
           curTok->_type == Di::TokenType::TOK_VAR){
-      block._cmd.push_back(*curTok);
+      block._cmd.push_back(std::move(*curTok));
       curTok++;
     }
+    check_token(*curTok);
+    while(curTok->_type == Di::TokenType::TOK_SEPAR){
+      curTok++;
+    }
+    // Second to the last should be moved to the args
+    while(valid_arg(*curTok)){
+      block._args.emplace_back(std::move(*curTok));
+      curTok++;
+    }
+    arr.emplace_back(std::move(block));
   }while(!stopParse || curTok != endTok);
   return arr;
 }
@@ -87,7 +99,7 @@ void check_token(Di::TokenArr::value_type const & i)
   }
 }
 
-void should_valid(Di::TokenArr::value_type const & i)
+void valid_cmd(Di::TokenArr::value_type const & i)
 {
   switch(i._type){
   default:
@@ -95,5 +107,19 @@ void should_valid(Di::TokenArr::value_type const & i)
   case Di::TokenType::TOK_STRING:
   case Di::TokenType::TOK_VAR:
     return;
+  }
+}
+
+bool valid_arg(Di::TokenArr::value_type const & i)
+{
+  switch(i._type){
+  default:
+    return false;
+  case Di::TokenType::TOK_STRING:
+  case Di::TokenType::TOK_VAR:
+  case Di::TokenType::TOK_SEPAR:
+    return true;
+  case Di::TokenType::TOK_UNIMPLEMENTED:
+    throw Di::Exc::UnimplementedToken{};
   }
 }

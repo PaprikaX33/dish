@@ -1,5 +1,6 @@
 #ifndef DISH_GET_LINE_HEAD_HPP
 #define DISH_GET_LINE_HEAD_HPP
+#include "Common.hpp"
 #include <string>
 
 namespace Di {

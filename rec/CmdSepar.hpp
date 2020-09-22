@@ -1,5 +1,6 @@
 #ifndef DISH_COMMAND_SEPARATOR_HEAD_HPP
 #define DISH_COMMAND_SEPARATOR_HEAD_HPP
+#include "Common.h"
 #include "Token.hpp"
 #include <string>
 #include <vector>
