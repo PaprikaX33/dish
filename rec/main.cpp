@@ -6,6 +6,7 @@
 
 #define BOOLSTR(x) (x ? "YES" : "NO")
 static char const * token_type_str(enum Di::TokenType tok);
+static void pretty_print_cmd(Di::CommandBlock const & cmd);
 
 int main(int argc, char ** argv)
 {
@@ -21,6 +22,12 @@ int main(int argc, char ** argv)
       std::cout << token_type_str(i._type) << '\t' << i._str.value_or("<->") << '\n';
     }
     auto cmd = Di::parse_token(tok);
+#ifndef NDEBUG
+    for(auto const & i : cmd){
+      std::cout << "==========\n";
+      pretty_print_cmd(i);
+    }
+#endif //NDEBUG
   }
   catch(Di::Exc::GetStringException const & exc){
     if(exc.soft_exit()){
@@ -67,4 +74,17 @@ char const * token_type_str(enum Di::TokenType tok)
   case Di::TokenType::TOK_UNIMPLEMENTED:
     return "<<TOKEN>>UNIMPLEMENTED";
   }
+}
+
+void pretty_print_cmd(Di::CommandBlock const & cmd)
+{
+  std::cout << "Command: ";
+  for(auto const & i : cmd._cmd){
+    std::cout << i._str.value_or("<NLL>") << ' ';
+  }
+  std::cout << '\n' << "Args : ";
+  for(auto const & i : cmd._args){
+    std::cout << i._str.value_or("<NLL>") << ' ';
+  }
+  std::cout << '\n';
 }

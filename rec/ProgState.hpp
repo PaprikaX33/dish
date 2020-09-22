@@ -1,6 +1,6 @@
 #ifndef DISH_PROGRAM_STATE_HEAD_HPP
 #define DISH_PROGRAM_STATE_HEAD_HPP
-#include "Common.hpp"
+#include "Common.h"
 
 namespace Di {
   struct GlobalState
