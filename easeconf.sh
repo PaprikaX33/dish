@@ -16,7 +16,7 @@ cd "$buildDir"
 
 if [ ! -s $configSiteFile ]; then
     cat > "$configSiteFile" <<EOF
-CPPFLAGS=-DDEBUG
+#CPPFLAGS=-DNDEBUG
 CFLAGS="\${CFLAGS} -std=c11 -Wall -Wextra -Wshadow -Wcast-align -Wunused -Wpedantic -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2"
 CXXFLAGS="\${CXXFLAGS} -g -Wall -Wextra -Werror -Og -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast"
 EOF
