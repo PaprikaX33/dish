@@ -19,10 +19,18 @@ namespace Di {
       {
         _errStr += this->tok_to_str(tok);
       }
-      char const * tok_to_str(Di::TokenType const tok) {
+      char const * tok_to_str(Di::TokenType const tok) noexcept {
         switch(tok){
         default:
-          return "";
+          return "<UNK>";
+        case Di::TokenType::TOK_STRING:
+          return "<STR>";
+        case Di::TokenType::TOK_VAR:
+          return "<VAR>";
+        case Di::TokenType::TOK_SEPAR:
+          return "<SPR>";
+        case Di::TokenType::TOK_END:
+          return "<END>";
         case Di::TokenType::TOK_PIPE:
           return "|";
         case Di::TokenType::TOK_RIGHT_REDIR:
@@ -83,9 +91,9 @@ void should_valid(Di::TokenArr::value_type const & i)
 {
   switch(i._type){
   default:
-    return;
+    throw Di::Exc::SyntaxError{i._type};
   case Di::TokenType::TOK_STRING:
   case Di::TokenType::TOK_VAR:
-    throw Di::Exc::SyntaxError{i._type};
+    return;
   }
 }
