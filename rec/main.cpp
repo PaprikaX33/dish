@@ -30,13 +30,7 @@ int main(int argc, char ** argv)
 #endif //NDEBUG
   }
   catch(Di::Exc::GetStringException const & exc){
-    if(exc.soft_exit()){
-      return 0;
-    }
-    else{
-      std::cerr << "Get String Error: " << exc.err_txt() << '\n';
-      return -1;
-    }
+    return exc.soft_exit() ? 0 : (std::cerr << "Get String Error: " << exc.err_txt() << '\n' , -1);
   }
   catch(Di::Exc::ParsingException const & exc){
     std::cerr << "Parsing Error: " << exc.err_txt() << '\n';

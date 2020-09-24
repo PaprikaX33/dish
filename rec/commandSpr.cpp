@@ -62,10 +62,6 @@ Di::CommandArr Di::parse_token(Di::TokenArr const & tok)
   CommandArr arr;
   do{
     Di::CommandBlock block;
-    // Skip the separator before the string if any
-    while(curTok->_type == Di::TokenType::TOK_SEPAR){
-      curTok++;
-    }
     if(curTok->_type == Di::TokenType::TOK_END){
       stopParse = true;
       break;
